@@ -17,12 +17,32 @@
 }
 
 #playground {
-    width: 750px;
-    height: 450px;
+    width: 60%;
+    height: 70%;
     position: absolute;
     background-image: url("/static/images/menu_background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     bottom: 20px;
     left: 20px;
+}
+
+#menu_button {
+    position: absolute;
+    left: 50%;
+}
+
+#start {
+    position: absolute;
+    top: 200px;
+}
+
+#tutorial {
+    position: absolute;
+    top: 230px;
+}
+
+#exit {
+    position: absolute;
+    top: 260px;
 }
