@@ -29,20 +29,26 @@
 
 #menu_button {
     position: absolute;
-    left: 50%;
+    left: 45%;
 }
 
 #start {
     position: absolute;
     top: 200px;
+    font-size: 20px;
+    background-color: coral;
 }
 
 #tutorial {
     position: absolute;
-    top: 230px;
+    top: 240px;
+    font-size: 20px;
+    background-color: coral;
 }
 
 #exit {
     position: absolute;
-    top: 260px;
+    top: 280px;
+    font-size: 20px;
+    background-color: coral;
 }
