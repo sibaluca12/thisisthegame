@@ -46,9 +46,10 @@
     background-color: coral;
 }
 
-#exit {
+#gif_image {
     position: absolute;
-    top: 280px;
-    font-size: 20px;
-    background-color: coral;
+    bottom: 20px;
+    right: 20px;
+    width: 37%;
+    height: 250px;
 }
