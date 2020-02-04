@@ -21,31 +21,10 @@
     left: 20px;
 }
 
-#playground_level1 {
-    width: 60%;
-    height: 70%;
-    position: absolute;
-    background-image: url("/static/images/level1_background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    bottom: 20px;
-    left: 20px;
-}
-
-#playground_level2 {
-    width: 60%;
-    height: 70%;
-    position: absolute;
-    background-image: url("/static/images/level2_background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    bottom: 20px;
-    left: 20px;
-}
-
 #menu_button {
     position: absolute;
-    left: 45%;
+    left: 50%;
+    align-items: center;
 }
 
 #start {
@@ -55,6 +34,26 @@
     background-color: coral;
 }
 
+#Easy {
+    position: absolute;
+    top: 200px;
+    font-size: 20px;
+    background-color: forestgreen;
+}
+
+#Medium {
+    position: absolute;
+    top: 240px;
+    font-size: 20px;
+    background-color: yellow;
+}
+
+#Mandalorian {
+    position: absolute;
+    top: 280px;
+    font-size: 20px;
+    background-color: red;
+}
 
 #gif_image {
     position: absolute;
@@ -62,4 +61,13 @@
     right: 20px;
     width: 37%;
     height: 250px;
+}
+
+#life_bar {
+    position: absolute;
+    top: 22%;
+    left: 20px;
+    background-color: white;
+    width: 150px;
+    height: 30px;
 }
