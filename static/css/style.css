@@ -30,6 +30,7 @@
 #menu_button {
     position: absolute;
     left: 45%;
+    top: 40%;
 }
 
 #start {
@@ -60,6 +61,17 @@
     background-image: url('/static/assets/metal.jpg');
     position: absolute;
     border-radius: 8px;
-    top: 500px;
-    left: 500px;
+
+}
+
+.bricks {
+    width: 150px;
+    height: 35px;
+    background-color: white;
+    position: absolute;
+}
+
+#bricks {
+    width: 864px;
+    height: 391px;
 }
