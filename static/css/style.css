@@ -3,12 +3,6 @@
     margin: 0;
 }
 
-#myCanvas {
-    background: #a3adad;
-    display: block;
-    margin: 0 auto;
-
-}
 
 #background {
     background-image: url("/static/images/background.jpg");
@@ -27,6 +21,28 @@
     left: 20px;
 }
 
+#playground_level1 {
+    width: 60%;
+    height: 70%;
+    position: absolute;
+    background-image: url("/static/images/level1_background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    bottom: 20px;
+    left: 20px;
+}
+
+#playground_level2 {
+    width: 60%;
+    height: 70%;
+    position: absolute;
+    background-image: url("/static/images/level2_background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    bottom: 20px;
+    left: 20px;
+}
+
 #menu_button {
     position: absolute;
     left: 45%;
@@ -39,12 +55,6 @@
     background-color: coral;
 }
 
-#tutorial {
-    position: absolute;
-    top: 240px;
-    font-size: 20px;
-    background-color: coral;
-}
 
 #gif_image {
     position: absolute;
