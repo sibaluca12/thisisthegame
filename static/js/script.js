@@ -23,17 +23,51 @@ function set_life(difficult, game_data) {
     }
 }
 
-function game_start(difficult, game_data){
-    set_life(difficult, game_data);
-    new_level("/static/images/level1_background.jpg");
-    let life_bar = document.getElementById('life_bar');
-    for (let i=0; i<game_data.life; i++){
+function add_life_bar(live){
+    const life_bar = document.createElement('div');
+    life_bar.setAttribute('id', 'life_bar');
+    life_bar.style.position = 'absolute';
+    life_bar.style.top = '22%';
+    life_bar.style.left = '20px';
+    life_bar.style.backgroundColor = 'white';
+    life_bar.style.width = '150px';
+    life_bar.style.height = '30px';
+
+    for (let i=0; i<live; i++){
         let life = document.createElement("img");
         life.setAttribute('src', '/static/images/life_bar.png');
         life.style.width = "30px";
         life.style.height = "30px";
         life_bar.appendChild(life);
     }
+
+    const ground = document.getElementById('background');
+    ground.appendChild(life_bar)
+}
+
+function add_score_bar(score) {
+    const score_bar = document.createElement('div');
+    score_bar.setAttribute('id', 'score_bar');
+    score_bar.style.position = 'absolute';
+    score_bar.style.top = "22%";
+    score_bar.style.left = '50.5%';
+    score_bar.style.backgroundColor = 'white';
+    score_bar.style.width = '150px';
+    score_bar.style.height ='30px';
+    score_bar.textContent = score;
+    score_bar.style.textAlign = 'right';
+    score_bar.style.fontSize = '20px';
+
+    const ground = document.getElementById('background');
+    ground.appendChild(score_bar);
+
+}
+
+function game_start(difficult, game_data){
+    set_life(difficult, game_data);
+    new_level("/static/images/level1_background.jpg");
+    add_life_bar(game_data.life);
+    add_score_bar(game_data.score)
 }
 
 function difficulty(game_data) {

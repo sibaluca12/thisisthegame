@@ -63,11 +63,3 @@
     height: 250px;
 }
 
-#life_bar {
-    position: absolute;
-    top: 22%;
-    left: 20px;
-    background-color: white;
-    width: 150px;
-    height: 30px;
-}
