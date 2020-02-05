@@ -65,8 +65,8 @@
 }
 
 .bricks {
-    width: 150px;
-    height: 35px;
+    width: 18%;
+    height: 8%;
     background-color: white;
     position: absolute;
     border-radius: 8px;
