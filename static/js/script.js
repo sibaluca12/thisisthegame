@@ -1,12 +1,13 @@
 window.onload = function () {
 
-    let playGround = document.getElementById('playground');
-    let paddleWidth = 175;
-    let paddleHeight = 30;
-    let paddleX = (playGround.width - paddleWidth) / 2;
-
-    let dx = 2;
-    let dy = -2;
+    playGround = document.getElementById('playground')
+    var paddleWidth = 175;
+    var paddleHeight = 30;
+    var paddleX = (playGround.width-paddleWidth)/2;
+    var brickRowCount = 4;
+    var brickColumnCount = 5;
+    var brickWidth = 150;
+    var brickHeight = 35;
     let rightPressed = false;
     let leftPressed = false;
     let playGroundWidth = document.getElementById('bricks').clientWidth;
@@ -21,26 +22,26 @@ window.onload = function () {
     };
 
     let bricks = [
-        {left: 81, top: 0},
-        {left: 81, top: 10},
-        {left: 81, top: 20},
-        {left: 81, top: 30},
-        {left: 61, top: 0},
-        {left: 61, top: 10},
-        {left: 61, top: 20},
-        {left: 61, top: 30},
-        {left: 41, top: 0},
-        {left: 41, top: 10},
-        {left: 41, top: 20},
-        {left: 41, top: 30},
-        {left: 21, top: 0},
-        {left: 21, top: 10},
-        {left: 21, top: 20},
-        {left: 21, top: 30},
-        {left: 1, top: 0},
-        {left: 1, top: 10},
-        {left: 1, top: 20},
-        {left: 1, top: 30}
+        { left: 81, top: 0, status:1},
+        { left: 81, top: 10,status:1},
+        { left: 81, top: 20, status:1 },
+        { left: 81, top: 30,status:1 },
+        { left: 61, top: 0, status:1 },
+        { left: 61, top: 10,status:1 },
+        { left: 61, top: 20,status:1 },
+        { left: 61, top: 30, status:1 },
+        { left: 41, top: 0, status:1 },
+        { left: 41, top: 10, status:1 },
+        { left: 41, top: 20, status:1 },
+        { left: 41, top: 30, status:1 },
+        { left: 21, top: 0, status:1},
+        { left: 21, top: 10, status:1 },
+        { left: 21, top: 20, status:1 },
+        { left: 21, top: 30, status:1 },
+        { left: 1, top: 0, status:1 },
+        { left: 1, top: 10, status:1 },
+        { left: 1, top: 20, status:1 },
+        { left: 1, top: 30, status:1 }
     ];
 
     document.onkeydown = function (e) {
@@ -49,21 +50,16 @@ window.onload = function () {
             if (paddle.left > 0) {
                 paddle.left = paddle.left - 2;
             }
-
-
         }
         if (e.keyCode === 39) {
             if (paddle.left < 79.5) {
                 leftPressed = true;
                 paddle.left = paddle.left + 2;
             }
-
-
         }
         drawPaddle();
 
     };
-
 
     function collisionDetection() {
         for (let brick = 0; brick < bricks.length; i++) {
@@ -91,57 +87,56 @@ window.onload = function () {
 
     }
 
-    function main() {
-        let ball = document.createElement('div');
-        ball.id = 'ball';
-        document.querySelector('#playground').appendChild(ball);
+    let ball = document.createElement('div');
+    ball.id = 'ball';
+    document.querySelector('#playground').appendChild(ball);
 
-        let ballX = 60;
-        let ballY = 80;
-        let ballRadius = 40;
+    let ballX = 60;
+    let ballY = 80;
+    let ballRadius = 40;
 
-        Object.assign(ball.style, {
-            width: ballRadius * 2 + 'px',
-            height: ballRadius * 2 + 'px',
-            borderRadius: '50%',
-            backgroundColor: 'orangered',
-            position: 'absolute',
-            left: ballX + '%',
-            bottom: ballY + '%',
-        });
+    Object.assign(ball.style, {
+        width: ballRadius * 2 + 'px',
+        height: ballRadius * 2 + 'px',
+        borderRadius: '50%',
+        backgroundColor: 'orangered',
+        position: 'absolute',
+        left: ballX + '%',
+        bottom: ballY + '%',
+    });
 
-        let direction = {dx: 1, dy: 1};
+    let direction = {dx: 1, dy: 1};
 
-        let id = setInterval(move, 20);
+    let id = setInterval(move, 20);
 
-        let playground = document.getElementById('playground');
-        let playgroundWidth_px = playground.clientWidth;
-        let playgroundHeight_px = playground.clientHeight;
+    let playground = document.getElementById('playground');
+    let playgroundWidth_px = playground.clientWidth;
+    let playgroundHeight_px = playground.clientHeight;
 
-        function move() {
-            if ( ballX >= 100 - 2 * (ballRadius / playgroundWidth_px) * 100 || ballX <= 0 ) {
-                direction.dx *= -1;
-            }
-            if (ballY >= 100 - 2 * (ballRadius / playgroundHeight_px) * 100 || ballY <= 0) {
-                direction.dy *= -1;
-            }
+    function move() {
+        if ( ballX >= 100 - 2 * (ballRadius / playgroundWidth_px) * 100 || ballX <= 0 ) {
+            direction.dx *= -1;
+        }
+        if (ballY >= 100 - 2 * (ballRadius / playgroundHeight_px) * 100 || ballY <= 0) {
+            direction.dy *= -1;
+        }
 
-            if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
-                clearInterval(id);
-            } else {
-                ballX += direction.dx;
-                ballY += direction.dy;
-                ball.style.left = ballX + '%';
-                ball.style.bottom = ballY + '%';
-            }
+        if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
+            clearInterval(id);
+        } else {
+            ballX += direction.dx;
+            ballY += direction.dy;
+            ball.style.left = ballX + '%';
+            ball.style.bottom = ballY + '%';
         }
     }
 
     function draw() {
-
         drawPaddle();
         drawBricks();
-        main();
+        move();
+        collisionDetection()
     }
+
     draw()
 };
