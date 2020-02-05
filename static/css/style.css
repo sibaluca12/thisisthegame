@@ -29,16 +29,37 @@
 
 #start {
     position: absolute;
-    top: 70px;
+    top: 30px;
     font-size: 20px;
     background-color: coral;
 }
 
 #tutorial {
     position: absolute;
-    top: 110px;
+    top: 70px;
     font-size: 20px;
     background-color: coral;
+}
+
+#Easy {
+    position : absolute;
+    top: 30px;
+    font-size: 20px;
+    background-color: forestgreen;
+}
+
+#Medium {
+    position : absolute;
+    top: 70px;
+    font-size: 20px;
+    background-color: yellow;
+}
+
+#Mandalorian {
+    position : absolute;
+    top: 110px;
+    font-size: 20px;
+    background-color: red;
 }
 
 #gif_image {
@@ -71,3 +92,35 @@
     height: 391px;
 }
 
+#life_bar {
+     position: absolute;
+     top: 22%;
+     left: 20px;
+     background-color: white;
+     width: 150px;
+     height: 30px;
+}
+
+#life {
+    width: 30px;
+    height: 30px;
+}
+
+#score_bar{
+    position: absolute;
+    top: 22%;
+    left: 50.5%;
+    background-color: white;
+    width: 150px;
+    height: 30px;
+    text-align: right;
+    font-size: 20px;
+}
+
+#speak{
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+}
