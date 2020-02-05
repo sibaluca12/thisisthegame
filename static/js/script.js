@@ -10,8 +10,8 @@ window.onload = function () {
     let brickHeight = 35;
     let rightPressed = false;
     let leftPressed = false;
-    let playGroundWidth = document.getElementById('bricks').clientWidth;
-    let playGroundHeight = document.getElementById('bricks').clientHeight;
+    let playGroundWidth = document.getElementById('playground').clientWidth;
+    let playGroundHeight = document.getElementById('playground').clientHeight;
     let x = playGroundWidth / 2;
     let y = playGroundHeight;
 
@@ -57,8 +57,8 @@ window.onload = function () {
                 paddle.left = paddle.left + 2;
             }
         }
-        drawPaddle();
 
+        drawPaddle();
     };
 
     function collisionDetection() {
@@ -110,14 +110,12 @@ window.onload = function () {
     let id = setInterval(move, 20);
 
     let playground = document.getElementById('playground');
-    let playgroundWidth_px = playground.clientWidth;
-    let playgroundHeight_px = playground.clientHeight;
 
     function move() {
-        if ( ballX >= 100 - 2 * (ballRadius / playgroundWidth_px) * 100 || ballX <= 0 ) {
+        if ( ballX >= 100 - 2 * (ballRadius / playGroundWidth) * 100 || ballX <= 0 ) {
             direction.dx *= -1;
         }
-        if (ballY >= 100 - 2 * (ballRadius / playgroundHeight_px) * 100 || ballY <= 0) {
+        if (ballY >= 100 - 2 * (ballRadius / playGroundHeight) * 100 || ballY <= 0) {
             direction.dy *= -1;
         }
 
