@@ -109,8 +109,6 @@ window.onload = function () {
 
     let id = setInterval(move, 20);
 
-    let playground = document.getElementById('playground');
-
     function move() {
         if ( ballX >= 100 - 2 * (ballRadius / playGroundWidth) * 100 || ballX <= 0 ) {
             direction.dx *= -1;
