@@ -63,14 +63,47 @@ function add_score_bar(score) {
 
 }
 
-function game_start(difficult, game_data){
+function game_play(game_data, speak_card){
+    let speak = document.getElementById('speak');
+    let level1 = ["/static/images/speaks/level1-1.png", "/static/images/speaks/level1-2.png", "/static/images/speaks/level1-3.png", "/static/images/speaks/level1-4.png", "/static/images/speaks/level1-5.png"];
+    speak.setAttribute('src', level1[0]);
+    speak.style.display = 'block';
+    for (let i = 0; i < level1.length; i++){
+        setInterval(function () {
+            speak.setAttribute('src', level1[i]);
+        }, 2000);
+    }
+}
+
+function speak(){
+    let speak = document.createElement('img');
+    speak.setAttribute('id', 'speak');
+    speak.style.position = 'absolute';
+    speak.style.width = '60%';
+    speak.style.height = '60%';
+    speak.style.top = '20%';
+    speak.style.left = '20%';
+    speak.style.display = 'none';
+
+    let ground = document.getElementById('playground');
+    ground.appendChild(speak)
+}
+
+function game_start(difficult, game_data, speak_card){
     set_life(difficult, game_data);
     new_level("/static/images/level1_background.jpg");
     add_life_bar(game_data.life);
-    add_score_bar(game_data.score)
+    add_score_bar(game_data.score);
+    speak();
+    game_play(game_data, speak_card)
 }
 
 function difficulty(game_data) {
+    const speak_cards = {
+        level1: ["/static/images/speaks/level1-1.png", "/static/images/speaks/level1-2.png", "/static/images/speaks/level1-3.png", "/static/images/speaks/level1-4.png", "/static/images/speaks/level1-5.png"],
+        level2: ["/static/images/speaks/level2-1.png", "/static/images/speaks/level2-2.png", "/static/images/speaks/level2-3.png", "/static/images/speaks/level2-4.png", "/static/images/speaks/level2-5.png"],
+        level3: ["/static/images/speaks/level3-1.png", "/static/images/speaks/level3-2.png", "/static/images/speaks/level3-3.png", "/static/images/speaks/level3-4.png", "/static/images/speaks/level3-5.png"],
+        level4: ["/static/images/speaks/level4-1.png", "/static/images/speaks/level4-2.png", "/static/images/speaks/level4-3.png", "/static/images/speaks/level4-4.png", "/static/images/speaks/level4-5.png"]};
     const old_buttons = document.getElementsByTagName('button');
     for (let i=0; i<old_buttons.length; i++){
         old_buttons[i].remove()
@@ -90,13 +123,13 @@ function difficulty(game_data) {
 
     for (let element of difficult) {
         document.getElementById(element).addEventListener('click', function(){
-            game_start(element, game_data)
+            game_start(element, game_data, speak_cards)
         })
     }
 }
 
 function main() {
-    const game_data = {life:0, speed:0, score:0};
+    const game_data = {life:0, speed:0, score:0, level:'level1'};
     document.getElementById('start').addEventListener("click", function(){
         difficulty(game_data)});
 
