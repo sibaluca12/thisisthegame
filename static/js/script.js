@@ -1,6 +1,4 @@
-
-
-window.onload = function() {
+window.onload = function () {
 
     playGround = document.getElementById('playground')
     var paddleWidth = 175;
@@ -12,12 +10,10 @@ window.onload = function() {
     var brickHeight = 35;
     let rightPressed = false;
     let leftPressed = false;
-    var playGroundWidth = document.getElementById('bricks').clientWidth;
-    var playGroundHeight = document.getElementById('bricks').clientHeight;
-    var x = playGroundWidth/2;
-    var y = playGroundHeight;
-
-
+    let playGroundWidth = document.getElementById('bricks').clientWidth;
+    let playGroundHeight = document.getElementById('bricks').clientHeight;
+    let x = playGroundWidth / 2;
+    let y = playGroundHeight;
 
 
     let paddle = {
@@ -48,50 +44,46 @@ window.onload = function() {
         { left: 1, top: 30, status:1 }
     ];
 
-    document.onkeydown = function(e) {
+    document.onkeydown = function (e) {
         let rightPressed;
-        if (e.keyCode == 37) {
-            if(paddle.left > 0 ) {
+        if (e.keyCode === 37) {
+            if (paddle.left > 0) {
                 paddle.left = paddle.left - 2;
             }
 
 
         }
-            if (e.keyCode == 39) {
-                if(paddle.left < 79.5) {
-                    leftPressed = true;
-                    paddle.left = paddle.left + 2;
-                }
-
-
+        if (e.keyCode === 39) {
+            if (paddle.left < 79.5) {
+                leftPressed = true;
+                paddle.left = paddle.left + 2;
             }
-            drawPaddle();
+
 
         }
+        drawPaddle();
+
+    };
 
 
     function collisionDetection() {
-        for(c=0; c < brickColumnCount; c++) {
-            for(r=0; r<brickRowCount; r++) {
-                var b = bricks[i];
-                if(b.status == 1) {
-                    if(x> b.x && x< b.x+brickWidth && y> b.y && y< b.y+brickHeight)
-                        dy = -dy
-                        b.status = 0;
-
-
-                }
+        for(var brick=0; brick < bricks.length; i++) {
+            if(
+                ball.left >= bricks[brick].left &&
+                ball.left <= (bricks[brick].left + 10) &&
+                ball.top <= (bricks[brick].top + 10) &&
+                ball.top >= bricks[brick].top
+            ) {
+                bricks.splice(brick, 1)
             }
         }
     }
 
-
     function drawBricks() {
         document.getElementById('bricks').innerHTML = "";
-        for(var i = 0 ; i < bricks.length ; i++ ) {
+        for (let i = 0; i < bricks.length; i++) {
             document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%'></div>`;
         }
-
     }
 
     function drawPaddle() {
@@ -101,40 +93,51 @@ window.onload = function() {
     }
 
 
-    let ball = document.getElementById("ball");
-    let ballX = 40;
-    let ballY = 50;
-    ball.style.left = ballX + '%';
-    ball.style.bottom = ballY + '%';
+    let ball = document.createElement('div');
+    ball.id = 'ball';
+    document.querySelector('#playground').appendChild(ball);
 
-    let dx = 1;
-    let dy = 1;
+    let ballX = 60;
+    let ballY = 80;
+    let ballRadius = 40;
+
+    Object.assign(ball.style, {
+        width: ballRadius * 2 + 'px',
+        height: ballRadius * 2 + 'px',
+        borderRadius: '50%',
+        backgroundColor: 'orangered',
+        position: 'absolute',
+        left: ballX + '%',
+        bottom: ballY + '%',
+    });
+
+    let direction = {dx: 1, dy: 1};
 
     let id = setInterval(move, 20);
 
+    let playground = document.getElementById('playground');
+    let playgroundWidth_px = playground.clientWidth;
+    let playgroundHeight_px = playground.clientHeight;
+
+
     function move() {
-        if (ballX >= 100) {
-            dx = -dx;
+        if ( ballX >= 100 - 2 * (ballRadius / playgroundWidth_px) * 100 || ballX <= 0 ) {
+            direction.dx *= -1;
         }
-        if (ballY >= 100) {
-            dy = -dy;
-        }
-        if (ballX <= 0) {
-            dx = -dx;
-        }
-        if (ballY <= 0) {
-            dy = -dy;
+        if (ballY >= 100 - 2 * (ballRadius / playgroundHeight_px) * 100 || ballY <= 0) {
+            direction.dy *= -1;
         }
 
-        if (ballY >= 110 || ballY <= -10 || ballX<=-10 || ballX >= 110) {
+        if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
             clearInterval(id);
         } else {
-            ballX += dx;
-            ballY += dy;
+            ballX += direction.dx;
+            ballY += direction.dy;
             ball.style.left = ballX + '%';
             ball.style.bottom = ballY + '%';
         }
     }
+
 
 
     function draw() {
@@ -149,5 +152,5 @@ window.onload = function() {
 
     draw()
 
-}
+};
 
