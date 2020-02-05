@@ -17,8 +17,8 @@
 }
 
 #playground {
-    width: 750px;
-    height: 450px;
+    width: 60%;
+    height: 70%;
     position: absolute;
     background-image: url("/static/images/menu_background.jpg");
     background-size: cover;
@@ -27,11 +27,29 @@
     left: 20px;
 }
 
-#pad {
-    width: 100px;
-    height: 20px;
-    background-color: darkred;
+#menu_button {
     position: absolute;
-    bottom: 25px;
-    left: 330px;
+    left: 45%;
+}
+
+#start {
+    position: absolute;
+    top: 200px;
+    font-size: 20px;
+    background-color: coral;
+}
+
+#tutorial {
+    position: absolute;
+    top: 240px;
+    font-size: 20px;
+    background-color: coral;
+}
+
+#gif_image {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 37%;
+    height: 250px;
 }
