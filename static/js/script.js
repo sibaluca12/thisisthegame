@@ -118,7 +118,6 @@ window.onload = function () {
         let playgroundWidth_px = playground.clientWidth;
         let playgroundHeight_px = playground.clientHeight;
 
-
         function move() {
             if ( ballX >= 100 - 2 * (ballRadius / playgroundWidth_px) * 100 || ballX <= 0 ) {
                 direction.dx *= -1;
@@ -143,11 +142,6 @@ window.onload = function () {
         drawPaddle();
         drawBricks();
         main();
-
-
     }
-
     draw()
-
 };
-
