@@ -11,14 +11,14 @@
 }
 
 #playground {
-    width: 60%;
-    height: 70%;
+    width: 99%;
+    height: 75%;
     position: absolute;
     background-image: url("/static/images/menu_background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    bottom: 20px;
-    left: 20px;
+    bottom: 0;
+    left: 3px;
 }
 
 #menu_button {
@@ -64,10 +64,10 @@
 
 #gif_image {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 37%;
-    height: 250px;
+    top: 0;
+    right: 0;
+    width: 25%;
+    height: 160px;
 }
 
 .paddle {
@@ -76,7 +76,6 @@
     background-image: url('/static/assets/metal.jpg');
     position: absolute;
     border-radius: 8px;
-
 }
 
 .bricks {
@@ -94,8 +93,8 @@
 
 #life_bar {
      position: absolute;
-     top: 22%;
-     left: 20px;
+     top: 20%;
+     left: 0;
      background-color: white;
      width: 150px;
      height: 30px;
@@ -108,8 +107,8 @@
 
 #score_bar{
     position: absolute;
-    top: 22%;
-    left: 50.5%;
+    top: 20%;
+    left: 64%;
     background-color: white;
     width: 150px;
     height: 30px;
@@ -121,7 +120,7 @@
     position: absolute;
     width: 60%;
     height: 60%;
-    top: 20%;
+    top: 15%;
     left: 20%;
 }
 
@@ -131,8 +130,8 @@
     height: 30px;
     background-color: coral;
     border-radius: 20px;
-    top: 21%;
-    left: 30%;
+    top: 20%;
+    left: 60%;
     display: block;
 }
 
@@ -142,7 +141,7 @@
     height: 30px;
     background-color: coral;
     border-radius: 20px;
-    top: 21%;
-    left: 30%;
+    top: 20%;
+    left: 60%;
     display: none;
 }

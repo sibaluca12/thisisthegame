@@ -33,7 +33,6 @@ function sound_off() {
 
 function difficult(game_data, speak_card){
     document.getElementById('start').remove();
-    document.getElementById('tutorial').remove();
     const difficult_buttons = document.createElement('div');
     difficult_buttons.setAttribute('id', 'difficult_button');
 
@@ -153,7 +152,7 @@ function play() {
     let playGroundHeight = document.getElementById('playground').clientHeight;
     let x = playGroundWidth / 2;
     let y = playGroundHeight;
-
+    let backgroundWidth = document.getElementById('background').clientWidth;
 
     let paddle = {
         left: 40,
@@ -183,21 +182,17 @@ function play() {
         { left: 1, top: 30, status:1 }
     ];
 
-    document.onkeydown = function (e) {
-        let rightPressed;
-        if (e.keyCode === 37) {
-            if (paddle.left > 0) {
-                paddle.left = paddle.left - 2;
-            }
+    document.onmousemove = function (event) {
+        if (event.clientX >= paddleWidth / 2 && event.clientX <= (backgroundWidth - paddleWidth / 2)){
+            paddle.left = event.clientX - paddleWidth / 2;
         }
-        if (e.keyCode === 39) {
-            if (paddle.left < 79.5) {
-                leftPressed = true;
-                paddle.left = paddle.left + 2;
-            }
+        else if (paddle.left < paddleWidth / 2){
+            paddle.left = 0;
         }
-
-        drawPaddle();
+        else if (paddle.left > backgroundWidth - paddleWidth / 2){
+            paddle.left = backgroundWidth - paddleWidth;
+        }
+        drawPaddle()
     };
 
     function collisionDetection() {
@@ -221,7 +216,7 @@ function play() {
     }
 
     function drawPaddle() {
-        document.getElementById('paddle').style.left = paddle.left + '%';
+        document.getElementById('paddle').style.left = paddle.left + 'px';
         document.getElementById('paddle').style.top = paddle.top + '%';
 
     }
