@@ -53,3 +53,11 @@
     width: 37%;
     height: 250px;
 }
+
+#ball {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: orangered;
+    position: absolute;
+}
