@@ -12,8 +12,8 @@
 
 #background {
     background-image: url("/static/images/background.jpg");
-    background-repeat: no-repeat;
     background-size: cover;
+
 }
 
 #playground {
@@ -69,9 +69,11 @@
     height: 35px;
     background-color: white;
     position: absolute;
+    border-radius: 8px;
 }
 
 #bricks {
     width: 864px;
     height: 391px;
 }
+

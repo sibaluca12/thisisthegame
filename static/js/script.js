@@ -6,16 +6,24 @@ window.onload = function() {
     var paddleWidth = 175;
     var paddleHeight = 30;
     var paddleX = (playGround.width-paddleWidth)/2;
-    var x = playGround.width/2;
-    var y = playGround.height - 30;
+
     var dx = 2;
     var dy = -2;
     let rightPressed = false;
     let leftPressed = false;
+    var playGroundWidth = document.getElementById('bricks').clientWidth;
+    var playGroundHeight = document.getElementById('bricks').clientHeight;
+    var x = playGroundWidth/2;
+    var y = playGroundHeight;
 
+
+    let ball = {
+        left: x,
+        top: y + 100
+    };
 
     let paddle = {
-        left: 25,
+        left: 40,
         top: 93.2
     };
 
@@ -46,22 +54,36 @@ window.onload = function() {
         let rightPressed;
         if (e.keyCode == 37) {
             if(paddle.left > 0 ) {
-                paddle.left = paddle.left - 0.5;
-                console.log(playGround.width);
+                paddle.left = paddle.left - 2;
             }
 
 
         }
             if (e.keyCode == 39) {
-                if(paddle.left < 80) {
+                if(paddle.left < 79.5) {
                     leftPressed = true;
-                    paddle.left = paddle.left + 0.5;
+                    paddle.left = paddle.left + 2;
                 }
 
 
             }
             drawPaddle();
+
         }
+
+
+    function collisionDetection() {
+        for(var brick=0; brick < bricks.length; i++) {
+            if(
+                ball.left >= bricks[brick].left &&
+                ball.left <= (bricks[brick].left + 10) &&
+                ball.top <= (bricks[brick].top + 10) &&
+                ball.top >= bricks[brick].top
+            ) {
+                bricks.splice(brick, 1)
+            }
+        }
+    }
 
 
     function drawBricks() {
@@ -81,12 +103,17 @@ window.onload = function() {
 
 
     function draw() {
-        drawPaddle()
-        drawBricks()
+
+        drawPaddle();
+        drawBricks();
+        //drawBall();
+        //moveBall();
+        x += dx;
+        y += dy;
 
     }
 
     draw()
-
+    setInterval(draw, 1000);
 }
 
