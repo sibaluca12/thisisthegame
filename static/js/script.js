@@ -63,30 +63,33 @@ function add_score_bar(score) {
 
 }
 
-function game_play(game_data, speak_card){
-    let speak = document.getElementById('speak');
-    let level1 = ["/static/images/speaks/level1-1.png", "/static/images/speaks/level1-2.png", "/static/images/speaks/level1-3.png", "/static/images/speaks/level1-4.png", "/static/images/speaks/level1-5.png"];
-    speak.setAttribute('src', level1[0]);
-    speak.style.display = 'block';
-    for (let i = 0; i < level1.length; i++){
-        setInterval(function () {
-            speak.setAttribute('src', level1[i]);
-        }, 2000);
+function speak_change(speak, speak_card){
+    let old_image = document.getElementById('speak').getAttribute('src');
+    let index = speak_card.level1.indexOf(old_image);
+    let new_index = index + 1;
+    if (new_index < speak_card.level1.length){
+        document.getElementById('speak').setAttribute('src', speak_card.level1[new_index])
+    }
+    else {
+        document.getElementById('speak').style.display = 'none'
     }
 }
 
-function speak(){
+function speak(speak_card){
     let speak = document.createElement('img');
     speak.setAttribute('id', 'speak');
+    speak.setAttribute('src', speak_card.level1[0]);
+    speak.addEventListener('click', function (){speak_change(speak, speak_card)});
     speak.style.position = 'absolute';
     speak.style.width = '60%';
     speak.style.height = '60%';
     speak.style.top = '20%';
     speak.style.left = '20%';
-    speak.style.display = 'none';
 
     let ground = document.getElementById('playground');
     ground.appendChild(speak)
+
+
 }
 
 function game_start(difficult, game_data, speak_card){
@@ -94,8 +97,7 @@ function game_start(difficult, game_data, speak_card){
     new_level("/static/images/level1_background.jpg");
     add_life_bar(game_data.life);
     add_score_bar(game_data.score);
-    speak();
-    game_play(game_data, speak_card)
+    speak(speak_card);
 }
 
 function difficulty(game_data) {
