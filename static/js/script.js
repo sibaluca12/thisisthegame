@@ -144,6 +144,6 @@ window.onload = function() {
     }
 
     draw()
-    setInterval(draw, 1000);
+
 }
 
