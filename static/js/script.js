@@ -1,27 +1,37 @@
 function main() {
     let ball = document.getElementById("ball");
-    ball.style.left = "400px";
-    ball.style.bottom = "250px";
+    let ballX = 40;
+    let ballY = 50;
+    ball.style.left = ballX + '%';
+    ball.style.bottom = ballY + '%';
 
-    let id = setInterval(move, 5);
-}
+    let dx = 1;
+    let dy = 1;
 
-function getCoordinates(element) {
-    let x = parseInt(element.style.left);
-    let y = parseInt(element.style.bottom);
-    return [x, y];
-}
+    let id = setInterval(move, 20);
 
-function move() {
-    let x = getCoordinates(ball)[0];
-    let y = getCoordinates(ball)[1];
-    if (y === 350) {
-        clearInterval(id);
-    } else {
-        x++;
-        y++;
-        ball.style.left = x + 'px';
-        ball.style.bottom = y + 'px';
+    function move() {
+        if (ballX >= 100) {
+            dx = -dx;
+        }
+        if (ballY >= 100) {
+            dy = -dy;
+        }
+        if (ballX <= 0) {
+            dx = -dx;
+        }
+        if (ballY <= 0) {
+            dy = -dy;
+        }
+
+        if (ballY >= 110 || ballY <= -10 || ballX<=-10 || ballX >= 110) {
+            clearInterval(id);
+        } else {
+            ballX += dx;
+            ballY += dy;
+            ball.style.left = ballX + '%';
+            ball.style.bottom = ballY + '%';
+        }
     }
 }
 
