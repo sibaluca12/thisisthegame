@@ -239,7 +239,7 @@ function play() {
         bottom: ballY + '%',
     });
 
-    let direction = {dx: 1, dy: 1};
+    let direction = {dx: 0.5, dy: 0.5};
 
     let id = setInterval(move, 20);
 
