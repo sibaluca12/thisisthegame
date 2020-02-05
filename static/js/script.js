@@ -16,15 +16,17 @@ window.onload = function () {
 function sound_on(){
     let sound = document.getElementById('song');
     sound.play();
+    sound.autoplay = true;
     sound.loop = true;
     sound.currentTime = 0;
     document.getElementById('sound').style.display = 'none';
-    document.getElementById('silence').style.display = 'block'
+    document.getElementById('silence').style.display = 'block';
 }
 
 function sound_off() {
     let sound = document.getElementById('song');
     sound.pause();
+    sound.autoplay = false;
     document.getElementById('sound').style.display = 'block';
     document.getElementById('silence').style.display = 'none'
 }
@@ -120,6 +122,7 @@ function speak_change(speak_card,){
         document.getElementById('speak').setAttribute('src', speak_card.level1[index])
     }
     else if (index === speak_card.level1.length){
+        document.getElementById('speak').removeEventListener('click', speak_change);
         document.getElementById('speak').addEventListener('click', play)
     }
 }
