@@ -12,8 +12,8 @@
 
 #background {
     background-image: url("/static/images/background.jpg");
-    background-repeat: no-repeat;
     background-size: cover;
+
 }
 
 #playground {
@@ -30,6 +30,7 @@
 #menu_button {
     position: absolute;
     left: 45%;
+    top: 40%;
 }
 
 #start {
@@ -61,3 +62,27 @@
     background-color: orangered;
     position: absolute;
 }
+
+
+.paddle {
+    width: 175px;
+    height: 30px;
+    background-image: url('/static/assets/metal.jpg');
+    position: absolute;
+    border-radius: 8px;
+
+}
+
+.bricks {
+    width: 150px;
+    height: 35px;
+    background-color: white;
+    position: absolute;
+    border-radius: 8px;
+}
+
+#bricks {
+    width: 864px;
+    height: 391px;
+}
+
