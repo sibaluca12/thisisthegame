@@ -7,9 +7,27 @@ window.onload = function () {
 
     };
     const game_data = {life:0, score:0, level:'level1'};
+    document.getElementById('sound').addEventListener('click', sound_on);
+    document.getElementById('silence').addEventListener('click', sound_off);
     document.getElementById('paddle').style.display = 'none';
     document.getElementById('start').addEventListener('click', function(){difficult(game_data, speak_card)})
 };
+
+function sound_on(){
+    let sound = document.getElementById('song');
+    sound.play();
+    sound.loop = true;
+    sound.currentTime = 0;
+    document.getElementById('sound').style.display = 'none';
+    document.getElementById('silence').style.display = 'block'
+}
+
+function sound_off() {
+    let sound = document.getElementById('song');
+    sound.pause();
+    document.getElementById('sound').style.display = 'block';
+    document.getElementById('silence').style.display = 'none'
+}
 
 function difficult(game_data, speak_card){
     document.getElementById('start').remove();
@@ -56,6 +74,20 @@ function set_life(difficult, game_data){
 function new_level(new_background){
     document.getElementById('menu_button').remove();
     document.getElementById('playground').style.backgroundImage = `url('${new_background}')`;
+    switch (new_background) {
+        case '/static/images/level1_background.jpg':
+            document.getElementById('song').setAttribute('src', '/static/audio/Face_to_Face.mp3');
+            break;
+        case '/static/images/level2_background.jpg':
+            document.getElementById('song').setAttribute('src', '/static/audio/HammerTime.mp3');
+            break;
+        case '/static/images/level3_background.jpg':
+            document.getElementById('song').setAttribute('src', '/static/audio/Back_for_Beskar.mp3');
+            break;
+        case '/static/images/level4_background.jpg':
+            document.getElementById('song').setAttribute('src', '/static/audio/You_are_a_Mandalorian.mp3');
+            break;
+    }
 }
 
 function add_life_bar(live){
