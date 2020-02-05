@@ -1,13 +1,13 @@
 window.onload = function () {
 
-    playGround = document.getElementById('playground')
-    var paddleWidth = 175;
-    var paddleHeight = 30;
-    var paddleX = (playGround.width-paddleWidth)/2;
-    var brickRowCount = 4;
-    var brickColumnCount = 5;
-    var brickWidth = 150;
-    var brickHeight = 35;
+    let playGround = document.getElementById('playground');
+    let paddleWidth = 175;
+    let paddleHeight = 30;
+    let paddleX = (playGround.width-paddleWidth)/2;
+    let brickRowCount = 4;
+    let brickColumnCount = 5;
+    let brickWidth = 150;
+    let brickHeight = 35;
     let rightPressed = false;
     let leftPressed = false;
     let playGroundWidth = document.getElementById('bricks').clientWidth;
@@ -62,7 +62,7 @@ window.onload = function () {
     };
 
     function collisionDetection() {
-        for (let brick = 0; brick < bricks.length; i++) {
+        for (let brick = 0; brick < bricks.length; brick++) {
             if (
                 ball.left >= bricks[brick].left &&
                 ball.left <= (bricks[brick].left + 10) &&
