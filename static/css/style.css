@@ -3,12 +3,6 @@
     margin: 0;
 }
 
-#myCanvas {
-    background: #a3adad;
-    display: block;
-    margin: 0 auto;
-
-}
 
 #background {
     background-image: url("/static/images/background.jpg");
@@ -35,14 +29,14 @@
 
 #start {
     position: absolute;
-    top: 200px;
+    top: 70px;
     font-size: 20px;
     background-color: coral;
 }
 
 #tutorial {
     position: absolute;
-    top: 240px;
+    top: 110px;
     font-size: 20px;
     background-color: coral;
 }
@@ -56,8 +50,8 @@
 }
 
 .paddle {
-    width: 175px;
-    height: 30px;
+    width: 130px;
+    height: 10px;
     background-image: url('/static/assets/metal.jpg');
     position: absolute;
     border-radius: 8px;

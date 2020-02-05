@@ -1,8 +1,14 @@
 window.onload = function () {
+    document.getElementById('paddle').style.display = 'none';
+    document.getElementById('start').addEventListener('click', play)
+};
 
+
+function play() {
+    document.getElementById('paddle').style.display = 'block';
     let playGround = document.getElementById('playground');
-    let paddleWidth = 175;
-    let paddleHeight = 30;
+    let paddleWidth = 150;
+    let paddleHeight = 10;
     let paddleX = (playGround.width-paddleWidth)/2;
     let brickRowCount = 4;
     let brickColumnCount = 5;
@@ -93,7 +99,7 @@ window.onload = function () {
 
     let ballX = 60;
     let ballY = 80;
-    let ballRadius = 40;
+    let ballRadius = 10;
 
     Object.assign(ball.style, {
         width: ballRadius * 2 + 'px',
@@ -135,4 +141,4 @@ window.onload = function () {
     }
 
     draw()
-};
+}
