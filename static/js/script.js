@@ -7,8 +7,8 @@ window.onload = function () {
 
     };
     const game_data = {life:0, score:0, level:'level1', speed: 0.5};
-    document.getElementById('sound').addEventListener('click', sound_on);
-    document.getElementById('silence').addEventListener('click', sound_off);
+    document.getElementById('sound').addEventListener('click', sound_off);
+    document.getElementById('silence').addEventListener('click', sound_on);
     document.getElementById('paddle').style.display = 'none';
     document.getElementById('start').addEventListener('click', function(){difficult(game_data, speak_card)})
 };
@@ -19,16 +19,16 @@ function sound_on(){
     sound.autoplay = true;
     sound.loop = true;
     sound.currentTime = 0;
-    document.getElementById('sound').style.display = 'none';
-    document.getElementById('silence').style.display = 'block';
+    document.getElementById('sound').style.display = 'block';
+    document.getElementById('silence').style.display = 'none';
 }
 
 function sound_off() {
     let sound = document.getElementById('song');
     sound.pause();
     sound.autoplay = false;
-    document.getElementById('sound').style.display = 'block';
-    document.getElementById('silence').style.display = 'none'
+    document.getElementById('sound').style.display = 'none';
+    document.getElementById('silence').style.display = 'block'
 }
 
 function difficult(game_data, speak_card){
@@ -212,7 +212,7 @@ function play(game_data) {
         for (let i = 0; i < bricks.length; i++) {
             let index = getRandom(0, heads.length);
             document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%' id="brick">
-                <img src='/static/images/${heads[index]}' id="head"></div>`;
+                <img src='/static/images/${heads[index]}' id="head" alt="head_image"></div>`;
         }
     }
 
