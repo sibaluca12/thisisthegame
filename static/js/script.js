@@ -236,6 +236,8 @@ function play(game_data) {
     let ballRadius = 40;
     let ballRadiusHorizontalPercentage = (ballRadius / playGroundWidth) * 100;
     let ballRadiusVerticalPercentage = (ballRadius / playGroundHeight) * 100;
+    let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
+    let paddleHeightPercentage = (paddleHeight / playGroundHeight) * 100;
 
     Object.assign(ball.style, {
         width: ballRadius * 2 + 'px',
@@ -279,6 +281,19 @@ function play(game_data) {
         });
     }
 
+    function paddleCollision() {
+        if(ballX + 2 * ballRadiusHorizontalPercentage >= paddle.left &&
+            ballX <= paddle.left + paddleWidthPercentage&&
+            ballY <= 100 - paddle.top &&
+            ballY + 2 * ballRadiusVerticalPercentage >= 100 - paddle.top - paddleHeight
+    ) {
+           direction.dy *= -1;
+
+        }
+        drawPaddle()
+    }
+
+
     function move() {
         if (ballX >= 100 - 2 * ballRadiusHorizontalPercentage || ballX <= 0) {
             direction.dx *= -1;
@@ -287,6 +302,7 @@ function play(game_data) {
             direction.dy *= -1;
         }
         collisionDetection();
+        paddleCollision()
 
         if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
             clearInterval(id);
@@ -295,6 +311,7 @@ function play(game_data) {
             ballY += direction.dy;
             drawBall();
         }
+
 
 
     }
@@ -308,3 +325,4 @@ function play(game_data) {
     draw(heads);
 
 }
+
