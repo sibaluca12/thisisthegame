@@ -22,26 +22,26 @@ window.onload = function () {
     };
 
     let bricks = [
-        {left: 81, bottom: 92, status: 1},
-        {left: 81, bottom: 82, status: 1},
-        {left: 81, bottom: 72, status: 1},
-        {left: 81, bottom: 62, status: 1},
-        {left: 61, bottom: 92, status: 1},
-        {left: 61, bottom: 82, status: 1},
-        {left: 61, bottom: 72, status: 1},
-        {left: 61, bottom: 62, status: 1},
-        {left: 41, bottom: 92, status: 1},
-        {left: 41, bottom: 82, status: 1},
-        {left: 41, bottom: 72, status: 1},
-        {left: 41, bottom: 62, status: 1},
-        {left: 21, bottom: 92, status: 1},
-        {left: 21, bottom: 82, status: 1},
-        {left: 21, bottom: 72, status: 1},
-        {left: 21, bottom: 62, status: 1},
-        {left: 1, bottom: 92, status: 1},
-        {left: 1, bottom: 82, status: 1},
-        {left: 1, bottom: 72, status: 1},
-        {left: 1, bottom: 62, status: 1}
+        {left: 81, top: 0, status: 1},
+        {left: 81, top: 10, status: 1},
+        {left: 81, top: 20, status: 1},
+        {left: 81, top: 30, status: 1},
+        {left: 61, top: 0, status: 1},
+        {left: 61, top: 10, status: 1},
+        {left: 61, top: 20, status: 1},
+        {left: 61, top: 30, status: 1},
+        {left: 41, top: 0, status: 1},
+        {left: 41, top: 10, status: 1},
+        {left: 41, top: 20, status: 1},
+        {left: 41, top: 30, status: 1},
+        {left: 21, top: 0, status: 1},
+        {left: 21, top: 10, status: 1},
+        {left: 21, top: 20, status: 1},
+        {left: 21, top: 30, status: 1},
+        {left: 1, top: 0, status: 1},
+        {left: 1, top: 10, status: 1},
+        {left: 1, top: 20, status: 1},
+        {left: 1, top: 30, status: 1}
     ];
 
     document.onkeydown = function (e) {
@@ -61,11 +61,10 @@ window.onload = function () {
         drawPaddle();
     };
 
-
     function drawBricks() {
         document.getElementById('bricks').innerHTML = "";
         for (let i = 0; i < bricks.length; i++) {
-            document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; bottom:${bricks[i].bottom}%'></div>`;
+            document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%'></div>`;
         }
     }
 
@@ -105,8 +104,8 @@ window.onload = function () {
             if (
                 ballX + 2 * ballRadiusHorizontalPercentage >= bricks[brick].left &&
                 ballX <= (bricks[brick].left + 18) &&
-                ballY <= (bricks[brick].bottom + 8) &&
-                ballY + 2 * ballRadiusVerticalPercentage >= bricks[brick].bottom
+                ballY <= (100 - bricks[brick].top) &&
+                ballY + 2 * ballRadiusVerticalPercentage >= 100 - bricks[brick].top - 8
             ) {
                 bricks.splice(brick, 1);
                 direction.dy *= -1;
