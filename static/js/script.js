@@ -6,7 +6,7 @@ window.onload = function () {
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
 
     };
-    const game_data = {life:0, score:0, level:'level1', speed: 0.5};
+    const game_data = {life:0, score:0, level:'level1', speed: 0.5, point: 0};
     document.getElementById('sound').addEventListener('click', sound_off);
     document.getElementById('silence').addEventListener('click', sound_on);
     document.getElementById('paddle').style.display = 'none';
@@ -62,13 +62,19 @@ function game_start(difficult, game_data, speak_card){
 
 function set_life(difficult, game_data){
     if (difficult === 'Easy'){
-        game_data.life = 5
+        game_data.life = 5;
+        game_data.speed = 0.5;
+        game_data.point = 1
     }
     else if (difficult === 'Medium'){
-        game_data.life = 3
+        game_data.life = 3;
+        game_data.speed = 0.7;
+        game_data.point = 3
     }
     else {
-        game_data.life = 1
+        game_data.life = 1;
+        game_data.speed = 1;
+        game_data.point = 5
     }
 }
 
@@ -141,12 +147,8 @@ function play(game_data) {
     let playGround = document.getElementById('playground');
     let paddleWidth = 130;
     let paddleHeight = 10;
-    let paddleX = (playGround.width-paddleWidth)/2;
-    let brickRowCount = 3;
-    let brickColumnCount = 5;
-    let brickWidth = 5;
+    let brickWidth = 10;
     let brickHeight = 10;
-    let rightPressed = false;
     let leftPressed = false;
     let playGroundWidth = document.getElementById('playground').clientWidth;
     let playGroundHeight = document.getElementById('playground').clientHeight;
@@ -158,21 +160,21 @@ function play(game_data) {
     };
 
     let bricks = [
-        { left: 81, top: 0, status:1},
-        { left: 88, top: 10,status:1},
-        { left: 94.5, top: 20, status:1 },
-        { left: 61, top: 0, status:1 },
-        { left: 68, top: 10,status:1 },
-        { left: 75, top: 20,status:1 },
-        { left: 41, top: 0, status:1 },
-        { left: 48, top: 10, status:1 },
-        { left: 55, top: 20, status:1 },
-        { left: 21, top: 0, status:1},
-        { left: 28, top: 10, status:1 },
-        { left: 35, top: 20, status:1 },
-        { left: 1, top: 0, status:1 },
-        { left: 8, top: 10, status:1 },
-        { left: 15, top: 20, status:1 },
+        { left: 80, top: 0, status:1},
+        { left: 85, top: 15,status:1},
+        { left: 90, top: 30, status:1 },
+        { left: 60, top: 0, status:1 },
+        { left: 65, top: 15,status:1 },
+        { left: 70, top: 30,status:1 },
+        { left: 40, top: 0, status:1 },
+        { left: 45, top: 15, status:1 },
+        { left: 50, top: 30, status:1 },
+        { left: 20, top: 0, status:1},
+        { left: 25, top: 15, status:1 },
+        { left: 30, top: 30, status:1 },
+        { left: 0, top: 0, status:1 },
+        { left: 5, top: 15, status:1 },
+        { left: 10, top: 30, status:1 },
     ];
 
     document.onmousemove = function (event) {
@@ -274,6 +276,8 @@ function play(game_data) {
                     direction.dy *= -1;
                 }
                 bricks.splice(brick, 1);
+                game_data.score += game_data.point;
+                document.getElementById('score_bar').textContent = game_data.score
             }
         }
         drawBricks();
@@ -289,7 +293,6 @@ function play(game_data) {
 
     function paddleCollision() {
         let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
-        let paddleHeightPercentage = (paddleHeight / playGroundHeight) * 100;
         let bottomOfPaddleY = 100 - paddle.top;
         let leftOfPaddleX = (paddle.left / playGroundWidth) * 100;
         if(ballX + ballRadiusHorizontalPercentage >= leftOfPaddleX  &&
