@@ -4,7 +4,6 @@ window.onload = function () {
         level2: ['/static/images/speaks/level2-1.png', '/static/images/speaks/level2-2.png', '/static/images/speaks/level2-3.png', '/static/images/speaks/level2-4.png', '/static/images/speaks/level2-5.png'],
         level3: ['/static/images/speaks/level3-1.png', '/static/images/speaks/level3-2.png', '/static/images/speaks/level3-3.png', '/static/images/speaks/level3-4.png', '/static/images/speaks/level3-5.png'],
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
-
     };
     const game_data = {life:0, score:0, level:'level1', speed: 0.5};
     document.getElementById('sound').addEventListener('click', sound_off);
@@ -150,7 +149,7 @@ function play(game_data) {
     let leftPressed = false;
     let playGroundWidth = document.getElementById('playground').clientWidth;
     let playGroundHeight = document.getElementById('playground').clientHeight;
-    const heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
+    let heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
 
     let paddle = {
         left: 40,
@@ -216,7 +215,8 @@ function play(game_data) {
     function drawBricks(heads) {
         document.getElementById('bricks').innerHTML = "";
         for (let i = 0; i < bricks.length; i++) {
-            let index = getRandom(0, heads.length);
+            // let index = getRandom(0, heads.length);
+            let index = 1;
             document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%'>
                 <img src='/static/images/${heads[index]}' id="head" alt="head_image"></div>`;
         }
