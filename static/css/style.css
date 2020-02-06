@@ -3,12 +3,6 @@
     margin: 0;
 }
 
-#myCanvas {
-    background: #a3adad;
-    display: block;
-    margin: 0 auto;
-
-}
 
 #background {
     background-image: url("/static/images/background.jpg");
@@ -17,65 +11,102 @@
 }
 
 #playground {
-    width: 60%;
-    height: 70%;
+    width: 70%;
+    height: 75%;
     position: absolute;
     background-image: url("/static/images/menu_background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    bottom: 20px;
-    left: 20px;
+    bottom: 0;
+    left: 3px;
 }
 
 #menu_button {
     position: absolute;
     left: 45%;
     top: 40%;
+    alignment: center;
+}
+
+#menu_button button:hover {
+    color: white;
+}
+
+button:hover {
+    background-color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 #start {
     position: absolute;
-    top: 200px;
-    font-size: 20px;
+    top: 30px;
+    font-size: 30px;
     background-color: coral;
+    display: block;
+    border-radius: 8px;
+    padding: 4px;
 }
+
+
 
 #tutorial {
     position: absolute;
-    top: 240px;
-    font-size: 20px;
+    top: 70px;
+    font-size: 30px;
     background-color: coral;
+}
+
+#Easy {
+    position : absolute;
+    top: 0;
+    font-size: 30px;
+    background-color: #078f0c;
+    display: block;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+#Medium {
+    position : absolute;
+    top: 60px;
+    font-size: 30px;
+    background-color: #f5a716;
+    display: block;
+    border-radius: 8px;
+    padding: 4px;
+
+}
+
+#Mandalorian {
+    position : absolute;
+    top: 120px;
+    font-size: 30px;
+    background-color: #bf0a00;
+    display: block;
+    border-radius: 8px;
+    padding: 4px;
+
 }
 
 #gif_image {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 37%;
+    bottom: 0;
+    right: 0;
+    width: 29.8%;
     height: 250px;
 }
 
-#ball {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    background-color: orangered;
-    position: absolute;
-}
-
-
 .paddle {
-    width: 175px;
-    height: 30px;
+    width: 130px;
+    height: 10px;
     background-image: url('/static/assets/metal.jpg');
     position: absolute;
     border-radius: 8px;
-
 }
 
 .bricks {
-    width: 150px;
-    height: 35px;
+    width: 10%;
+    height: 10%;
     background-color: white;
     position: absolute;
     border-radius: 8px;
@@ -86,3 +117,73 @@
     height: 391px;
 }
 
+#life_bar {
+     position: absolute;
+     top: 20.2%;
+     left: 3px;
+     background-color: coral;
+     width: 150px;
+     height: 30px;
+}
+
+#life {
+    width: 30px;
+    height: 30px;
+}
+
+#score_bar{
+    position: absolute;
+    top: 20.2%;
+    left: 59.2%;
+    background-color: coral;
+    width: 150px;
+    height: 30px;
+    text-align: right;
+    font-size: 20px;
+}
+
+#speak{
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 15%;
+    left: 20%;
+}
+
+#sound {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: coral;
+    border-radius: 20px;
+    top: 20%;
+    left: 51%;
+    display: none;
+}
+
+#silence{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: coral;
+    border-radius: 20px;
+    top: 20%;
+    left: 51%;
+    display: block;
+}
+
+#head {
+    width: 10%;
+    height: 10%;
+}
+
+#death {
+    position: absolute;
+    width: 80%;
+    height: 25%;
+    font-size: 100px;
+    top: 10%;
+    left: 10%;
+    background-color: coral;
+    text-align: center;
+}
