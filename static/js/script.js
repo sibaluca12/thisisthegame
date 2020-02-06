@@ -2,14 +2,14 @@ window.onload = function () {
     menu()
 };
 
-function menu(){
+function menu() {
     const speak_card = {
         level1: ['/static/images/speaks/level1-1.png', '/static/images/speaks/level1-2.png', '/static/images/speaks/level1-3.png', '/static/images/speaks/level1-4.png', '/static/images/speaks/level1-5.png'],
         level2: ['/static/images/speaks/level2-1.png', '/static/images/speaks/level2-2.png', '/static/images/speaks/level2-3.png', '/static/images/speaks/level2-4.png', '/static/images/speaks/level2-5.png'],
         level3: ['/static/images/speaks/level3-1.png', '/static/images/speaks/level3-2.png', '/static/images/speaks/level3-3.png', '/static/images/speaks/level3-4.png', '/static/images/speaks/level3-5.png'],
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
     };
-    const game_data = {life:0, score:0, level:'level1', speed: 0.5, point: 0, move: true};
+    const game_data = {life: 0, score: 0, level: 'level1', speed: 0.5, point: 0, move: true};
     document.getElementById('sound').addEventListener('click', sound_off);
     document.getElementById('silence').addEventListener('click', sound_on);
     document.getElementById('paddle').style.display = 'none';
@@ -67,18 +67,16 @@ function game_start(difficult, game_data, speak_card) {
 
 }
 
-function set_life(difficult, game_data){
-    if (difficult === 'Easy'){
+function set_life(difficult, game_data) {
+    if (difficult === 'Easy') {
         game_data.life = 5;
         game_data.speed = 0.5;
         game_data.point = 1
-    }
-    else if (difficult === 'Medium'){
+    } else if (difficult === 'Medium') {
         game_data.life = 3;
         game_data.speed = 0.7;
         game_data.point = 3
-    }
-    else {
+    } else {
         game_data.life = 1;
         game_data.speed = 1;
         game_data.point = 5
@@ -170,21 +168,21 @@ function play(game_data) {
     };
 
     let bricks = [
-        { left: 80, top: 0, status:1},
-        { left: 85, top: 15,status:1},
-        { left: 90, top: 30, status:1 },
-        { left: 60, top: 0, status:1 },
-        { left: 65, top: 15,status:1 },
-        { left: 70, top: 30,status:1 },
-        { left: 40, top: 0, status:1 },
-        { left: 45, top: 15, status:1 },
-        { left: 50, top: 30, status:1 },
-        { left: 20, top: 0, status:1},
-        { left: 25, top: 15, status:1 },
-        { left: 30, top: 30, status:1 },
-        { left: 0, top: 0, status:1 },
-        { left: 5, top: 15, status:1 },
-        { left: 10, top: 30, status:1 },
+        {left: 80, top: 0, status: 1},
+        {left: 85, top: 15, status: 1},
+        {left: 90, top: 30, status: 1},
+        {left: 60, top: 0, status: 1},
+        {left: 65, top: 15, status: 1},
+        {left: 70, top: 30, status: 1},
+        {left: 40, top: 0, status: 1},
+        {left: 45, top: 15, status: 1},
+        {left: 50, top: 30, status: 1},
+        {left: 20, top: 0, status: 1},
+        {left: 25, top: 15, status: 1},
+        {left: 30, top: 30, status: 1},
+        {left: 0, top: 0, status: 1},
+        {left: 5, top: 15, status: 1},
+        {left: 10, top: 30, status: 1},
     ];
 
     document.onmousemove = function (event) {
@@ -230,7 +228,7 @@ function play(game_data) {
         }
     }
 
-    function add_head(){
+    function add_head() {
         let index = getRandom(0, heads.length);
         return `/static/images/${heads[index]}`;
     }
@@ -302,28 +300,31 @@ function play(game_data) {
         let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
         let bottomOfPaddleY = 100 - paddle.top;
         let leftOfPaddleX = (paddle.left / playGroundWidth) * 100;
-        if(ballX + ballRadiusHorizontalPercentage >= leftOfPaddleX  &&
-            ballX <= leftOfPaddleX + paddleWidthPercentage  &&
-            ballY <= bottomOfPaddleY
-    ) {
-           direction.dy *= -1;
+        if (ballX + ballRadiusHorizontalPercentage >= leftOfPaddleX &&
+            ballX <= leftOfPaddleX + paddleWidthPercentage &&
+            ballY <= bottomOfPaddleY) {
+            direction.dy *= -1;
 
+            if (ballX + ballRadiusHorizontalPercentage < leftOfPaddleX + paddleWidthPercentage / 2) {
+                direction.dx = -game_data.speed;
+            } else {
+                direction.dx = game_data.speed;
+            }
         }
-
     }
 
-    function reset_board(){
+    function reset_board() {
         document.getElementById('life').remove();
         document.getElementById('life_bar').remove();
         document.getElementById('score_bar').remove();
         document.getElementById('playground').remove();
         document.getElementById('song').setAttribute('src', '/static/audio/The_Mandalorian%20-%20Soundtrack.mp3');
-        for (let i = 0; i < bricks.length; i++){
+        for (let i = 0; i < bricks.length; i++) {
             document.getElementById(`brick${i}`).remove()
         }
     }
 
-    function back_to_menu(){
+    function back_to_menu() {
         reset_board();
         let play_ground = document.createElement('div');
         play_ground.id = 'playground';
@@ -351,7 +352,7 @@ function play(game_data) {
         menu()
     }
 
-    function death(){
+    function death() {
         let death = document.createElement('div');
         death.id = 'death';
         death.textContent = 'MISSION FAIL';
@@ -398,6 +399,7 @@ function play(game_data) {
         drawBricks();
         move();
     }
+
     draw();
 
 }
