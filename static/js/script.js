@@ -5,7 +5,7 @@ window.onload = function () {
         level3: ['/static/images/speaks/level3-1.png', '/static/images/speaks/level3-2.png', '/static/images/speaks/level3-3.png', '/static/images/speaks/level3-4.png', '/static/images/speaks/level3-5.png'],
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
     };
-    const game_data = {life:0, score:0, level:'level1', speed: 1.5};
+    const game_data = {life:0, score:0, level:'level1', speed: 0.5};
     document.getElementById('sound').addEventListener('click', sound_off);
     document.getElementById('silence').addEventListener('click', sound_on);
     document.getElementById('paddle').style.display = 'none';
@@ -138,7 +138,7 @@ function play(game_data) {
     document.getElementById('speak').style.display = 'none';
     document.getElementById('paddle').style.display = 'block';
     let playGround = document.getElementById('playground');
-    let paddleWidth = 150;
+    let paddleWidth = 130;
     let paddleHeight = 10;
     let paddleX = (playGround.width-paddleWidth)/2;
     let brickRowCount = 3;
@@ -283,6 +283,23 @@ function play(game_data) {
         });
     }
 
+
+    function paddleCollision() {
+        let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
+        let paddleHeightPercentage = (paddleHeight / playGroundHeight) * 100;
+        let bottomOfPaddleY = 100 - paddle.top;
+        let leftOfPaddleX = (paddle.left / playGroundWidth) * 100;
+        if(ballX + ballRadiusHorizontalPercentage >= leftOfPaddleX  &&
+            ballX <= leftOfPaddleX + paddleWidthPercentage  &&
+            ballY <= bottomOfPaddleY
+    ) {
+           direction.dy *= -1;
+
+        }
+
+    }
+
+
     function move() {
         if (ballX >= 100 - 2 * ballRadiusHorizontalPercentage || ballX <= 0) {
             direction.dx *= -1;
@@ -291,6 +308,8 @@ function play(game_data) {
             direction.dy *= -1;
         }
         collisionDetection();
+
+        paddleCollision();
 
         if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
             clearInterval(id);
