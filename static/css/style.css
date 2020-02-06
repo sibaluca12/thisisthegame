@@ -58,7 +58,7 @@ button:hover {
 
 #Easy {
     position : absolute;
-    top: 0px;
+    top: 0;
     font-size: 30px;
     background-color: #078f0c;
     display: block;
