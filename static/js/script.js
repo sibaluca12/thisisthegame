@@ -163,34 +163,29 @@ function play() {
         { left: 81, top: 0, status:1},
         { left: 81, top: 10,status:1},
         { left: 81, top: 20, status:1 },
-        { left: 81, top: 30,status:1 },
         { left: 61, top: 0, status:1 },
         { left: 61, top: 10,status:1 },
         { left: 61, top: 20,status:1 },
-        { left: 61, top: 30, status:1 },
         { left: 41, top: 0, status:1 },
         { left: 41, top: 10, status:1 },
         { left: 41, top: 20, status:1 },
-        { left: 41, top: 30, status:1 },
         { left: 21, top: 0, status:1},
         { left: 21, top: 10, status:1 },
         { left: 21, top: 20, status:1 },
-        { left: 21, top: 30, status:1 },
         { left: 1, top: 0, status:1 },
-        { left: 1, top: 10, status:1 },
-        { left: 1, top: 20, status:1 },
-        { left: 1, top: 30, status:1 }
+        { left: 7, top: 10, status:1 },
+        { left: 13, top: 20, status:1 },
     ];
 
     document.onmousemove = function (event) {
-        if (event.clientX >= paddleWidth / 2 && event.clientX <= (backgroundWidth - paddleWidth / 2)){
+        if (event.clientX >= paddleWidth / 2 && event.clientX <= (playGroundWidth - paddleWidth / 2)){
             paddle.left = event.clientX - paddleWidth / 2;
         }
         else if (paddle.left < paddleWidth / 2){
             paddle.left = 0;
         }
-        else if (paddle.left > backgroundWidth - paddleWidth / 2){
-            paddle.left = backgroundWidth - paddleWidth;
+        else if (paddle.left > playGroundWidth - paddleWidth / 2 || event.clientX > playGroundWidth){
+            paddle.left = playGroundWidth - paddleWidth + 20;
         }
         drawPaddle()
     };

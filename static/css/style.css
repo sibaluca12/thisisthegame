@@ -11,7 +11,7 @@
 }
 
 #playground {
-    width: 99%;
+    width: 70%;
     height: 75%;
     position: absolute;
     background-image: url("/static/images/menu_background.jpg");
@@ -64,10 +64,10 @@
 
 #gif_image {
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
-    width: 25%;
-    height: 160px;
+    width: 29.8%;
+    height: 250px;
 }
 
 .paddle {
@@ -79,8 +79,8 @@
 }
 
 .bricks {
-    width: 150px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     background-color: white;
     position: absolute;
     border-radius: 8px;
@@ -93,9 +93,9 @@
 
 #life_bar {
      position: absolute;
-     top: 20%;
-     left: 0;
-     background-color: white;
+     top: 20.2%;
+     left: 3px;
+     background-color: coral;
      width: 150px;
      height: 30px;
 }
@@ -107,9 +107,9 @@
 
 #score_bar{
     position: absolute;
-    top: 20%;
-    left: 64%;
-    background-color: white;
+    top: 20.2%;
+    left: 59.2%;
+    background-color: coral;
     width: 150px;
     height: 30px;
     text-align: right;
@@ -131,7 +131,7 @@
     background-color: coral;
     border-radius: 20px;
     top: 20%;
-    left: 60%;
+    left: 51%;
     display: block;
 }
 
@@ -142,6 +142,6 @@
     background-color: coral;
     border-radius: 20px;
     top: 20%;
-    left: 60%;
+    left: 51%;
     display: none;
 }
