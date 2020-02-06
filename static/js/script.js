@@ -286,7 +286,6 @@ function play(game_data) {
         });
     }
 
-
     function paddleCollision() {
         let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
         let paddleHeightPercentage = (paddleHeight / playGroundHeight) * 100;
@@ -302,7 +301,6 @@ function play(game_data) {
 
     }
 
-
     function move() {
         if (ballX >= 100 - 2 * ballRadiusHorizontalPercentage || ballX <= 0) {
             direction.dx *= -1;
@@ -314,7 +312,7 @@ function play(game_data) {
 
         paddleCollision();
 
-        if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
+        if (ballY <= 2) {
             clearInterval(id);
         } else {
             ballX += direction.dx;
