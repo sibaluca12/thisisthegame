@@ -3,7 +3,7 @@ window.onload = function () {
     let playGround = document.getElementById('playground');
     let paddleWidth = 175;
     let paddleHeight = 30;
-    let paddleX = (playGround.width-paddleWidth)/2;
+
     let brickRowCount = 4;
     let brickColumnCount = 5;
     let brickWidth = 150;
@@ -14,7 +14,7 @@ window.onload = function () {
     let playGroundHeight = document.getElementById('bricks').clientHeight;
     let x = playGroundWidth / 2;
     let y = playGroundHeight;
-
+    let paddleX = (playGroundWidth-paddleWidth)/2;
 
     let paddle = {
         left: 40,
@@ -129,6 +129,10 @@ window.onload = function () {
             ball.style.left = ballX + '%';
             ball.style.bottom = ballY + '%';
         }
+        if(ballX > paddleX && ballX < paddleX + paddleWidth) {
+            direction.dy *= -1
+        }
+
     }
 
     function draw() {
@@ -136,6 +140,8 @@ window.onload = function () {
         drawBricks();
         move();
         collisionDetection()
+
+
     }
 
     draw()
