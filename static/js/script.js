@@ -19,6 +19,14 @@ function menu() {
     })
 }
 
+function playSound(sound, loop) {
+    if (document.getElementById('sound').getAttribute('alt') === 'on'){
+        sound.loop = loop;
+        sound.play();
+        sound.currentTime = 0
+    }
+}
+
 function sound_on() {
     let sound = document.getElementById('song');
     sound.play();
@@ -64,6 +72,8 @@ function difficult(game_data, speak_card) {
 }
 
 function game_start(difficult, game_data, speak_card) {
+    let waySong = new Audio('static/audio/This_is_the_way.mp3');
+    playSound(waySong, false);
     set_life(difficult, game_data);
     new_level('/static/images/level1_background.jpg');
     add_life_bar(game_data.life);
@@ -152,6 +162,8 @@ function speak(speak_card, game_data) {
 }
 
 function play(game_data) {
+        let spokenSong = new Audio('static/audio/i_have_spoken.mp3');
+        playSound(spokenSong, false);
     if (game_data.move) {
         document.getElementById('speak').style.display = 'none';
         document.getElementById('paddle').style.display = 'block';
@@ -162,6 +174,7 @@ function play(game_data) {
         let playGroundWidth = document.getElementById('playground').clientWidth;
         let playGroundHeight = document.getElementById('playground').clientHeight;
         let deathSong = new Audio('static/audio/WEEEOOOOWW.mp3');
+        let laserSong = new Audio('static/audio/Blaster-Imperial.wav');
         // let heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
 
         let paddle = {
@@ -189,11 +202,7 @@ function play(game_data) {
 
         let brick_number = bricks.length;
 
-        function playSound(sound, loop) {
-            sound.loop = loop;
-            sound.play();
-            sound.currentTime = 0
-        }
+
 
         if (game_data.move) {
             document.onmousemove = function (event) {
@@ -296,6 +305,7 @@ function play(game_data) {
                     }
                     bricks.splice(brick, 1);
                     game_data.score += game_data.point;
+                    playSound(laserSong, false);
                     document.getElementById('score_bar').textContent = game_data.score;
                     brick_number -= 1;
                     if (brick_number === 0) {
@@ -421,9 +431,7 @@ function play(game_data) {
                 ballY = 20;
                 direction.dy *= -1;
                 if (game_data.life === 0) {
-                    if (document.getElementById('sound').getAttribute('alt') === 'on'){
-                        playSound(deathSong, false)
-                    }
+                    playSound(deathSong, false);
                     game_data.move = false;
                     document.getElementById('gif_image').setAttribute('src', "/static/images/Baby_yoda_sad.gif");
                     document.getElementById('playground').appendChild(death);
