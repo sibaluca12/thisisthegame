@@ -10,6 +10,7 @@ function menu() {
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
     };
     const game_data = {life: 0, score: 0, level: 'level1', speed: 0.5, point: 0, move: true};
+    document.getElementById('gif_image').setAttribute('src', "/static/images/Baby_yoda_supe.gif");
     document.getElementById('sound').addEventListener('click', sound_off);
     document.getElementById('silence').addEventListener('click', sound_on);
     document.getElementById('paddle').style.display = 'none';
@@ -181,6 +182,8 @@ function play(game_data) {
             {left: 10, top: 30, status: 1},
         ];
 
+        let brick_number = bricks.length;
+
         if (game_data.move) {
             document.onmousemove = function (event) {
                 if (event.clientX >= paddleWidth / 2 && event.clientX <= (playGroundWidth - paddleWidth / 2)) {
@@ -282,7 +285,11 @@ function play(game_data) {
                     }
                     bricks.splice(brick, 1);
                     game_data.score += game_data.point;
-                    document.getElementById('score_bar').textContent = game_data.score
+                    document.getElementById('score_bar').textContent = game_data.score;
+                    brick_number -= 1;
+                    if (brick_number === 0) {
+                        death()
+                    }
                 }
             }
             drawBricks();
@@ -295,6 +302,9 @@ function play(game_data) {
             });
         }
 
+        function win() {
+
+        }
 
         function paddleCollision() {
             let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
@@ -362,8 +372,13 @@ function play(game_data) {
                 direction.dy *= -1;
                 if (game_data.life === 0) {
                     game_data.move = false;
+                    document.getElementById('gif_image').setAttribute('src', "/static/images/Baby_yoda_sad.gif");
                     document.getElementById('playground').appendChild(death);
                     setTimeout(back_to_menu, 3000)
+                }
+                else {
+                    game_data.move = false;
+                    win()
                 }
             }
         }
