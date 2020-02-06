@@ -6,8 +6,8 @@ window.onload = function () {
     let paddleX = (playGround.width - paddleWidth) / 2;
     let brickRowCount = 4;
     let brickColumnCount = 5;
-    let brickWidth = 150;
-    let brickHeight = 35;
+    let brickWidth = 18;
+    let brickHeight = 8;
     let rightPressed = false;
     let leftPressed = false;
     let playGroundWidth = document.getElementById('playground').clientWidth;
@@ -64,7 +64,7 @@ window.onload = function () {
     function drawBricks() {
         document.getElementById('bricks').innerHTML = "";
         for (let i = 0; i < bricks.length; i++) {
-            document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%'></div>`;
+            document.getElementById('bricks').innerHTML += `<div class='brick' style='left:${bricks[i].left}%; top:${bricks[i].top}%'></div>`;
         }
     }
 
@@ -81,8 +81,8 @@ window.onload = function () {
     let ballX = 60;
     let ballY = 20;
     let ballRadius = 40;
-    let ballRadiusHorizontalPercentage =  (ballRadius / playGroundWidth) * 100;
-    let ballRadiusVerticalPercentage =  (ballRadius / playGroundHeight) * 100;
+    let ballRadiusHorizontalPercentage = (ballRadius / playGroundWidth) * 100;
+    let ballRadiusVerticalPercentage = (ballRadius / playGroundHeight) * 100;
 
     Object.assign(ball.style, {
         width: ballRadius * 2 + 'px',
@@ -99,20 +99,24 @@ window.onload = function () {
     let id = setInterval(move, 20);
 
     function collisionDetection() {
-        let didItHit = false;
         for (let brick = 0; brick < bricks.length; brick++) {
+            let currentBrickLeft = bricks[brick].left;
+            let currentBrickTop = bricks[brick].top;
             if (
-                ballX + 2 * ballRadiusHorizontalPercentage >= bricks[brick].left &&
-                ballX <= (bricks[brick].left + 18) &&
-                ballY <= (100 - bricks[brick].top) &&
-                ballY + 2 * ballRadiusVerticalPercentage >= 100 - bricks[brick].top - 8
+                ballX + 2 * ballRadiusHorizontalPercentage >= currentBrickLeft &&
+                ballX <= currentBrickLeft + brickWidth &&
+                ballY <= 100 - currentBrickTop &&
+                ballY + 2 * ballRadiusVerticalPercentage >= 100 - currentBrickTop - brickHeight
             ) {
+                if (ballY < 100 - currentBrickTop && ballY > 100 - currentBrickTop - brickHeight) {
+                    direction.dx *= -1;
+                } else {
+                    direction.dy *= -1;
+                }
                 bricks.splice(brick, 1);
-                direction.dy *= -1;
             }
         }
         drawBricks();
-        return didItHit;
     }
 
     function drawBall() {
