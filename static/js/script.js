@@ -269,7 +269,7 @@ function play(game_data) {
                 bricks.splice(brick, 1);
             }
         }
-        drawBricks();
+        drawBricks(heads);
     }
 
     function drawBall() {
@@ -295,12 +295,14 @@ function play(game_data) {
             ballY += direction.dy;
             drawBall();
         }
+
     }
 
     function draw(heads) {
         drawPaddle();
         drawBricks(heads);
         move();
+
     }
     draw(heads);
 
