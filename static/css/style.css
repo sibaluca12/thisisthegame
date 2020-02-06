@@ -150,3 +150,14 @@
     width: 10%;
     height: 10%;
 }
+
+#death {
+    position: absolute;
+    width: 80%;
+    height: 25%;
+    font-size: 100px;
+    top: 10%;
+    left: 10%;
+    background-color: coral;
+    text-align: center;
+}

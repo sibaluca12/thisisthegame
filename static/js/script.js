@@ -1,18 +1,22 @@
 window.onload = function () {
+    menu()
+};
+
+function menu(){
     const speak_card = {
         level1: ['/static/images/speaks/level1-1.png', '/static/images/speaks/level1-2.png', '/static/images/speaks/level1-3.png', '/static/images/speaks/level1-4.png', '/static/images/speaks/level1-5.png'],
         level2: ['/static/images/speaks/level2-1.png', '/static/images/speaks/level2-2.png', '/static/images/speaks/level2-3.png', '/static/images/speaks/level2-4.png', '/static/images/speaks/level2-5.png'],
         level3: ['/static/images/speaks/level3-1.png', '/static/images/speaks/level3-2.png', '/static/images/speaks/level3-3.png', '/static/images/speaks/level3-4.png', '/static/images/speaks/level3-5.png'],
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
     };
-    const game_data = {life:0, score:0, level:'level1', speed: 0.5, point: 0};
+    const game_data = {life:0, score:0, level:'level1', speed: 0.5, point: 0, move: true};
     document.getElementById('sound').addEventListener('click', sound_off);
     document.getElementById('silence').addEventListener('click', sound_on);
     document.getElementById('paddle').style.display = 'none';
     document.getElementById('start').addEventListener('click', function () {
         difficult(game_data, speak_card)
     })
-};
+}
 
 function sound_on() {
     let sound = document.getElementById('song');
@@ -310,24 +314,84 @@ function play(game_data) {
 
     }
 
+    function reset_board(){
+        document.getElementById('life').remove();
+        document.getElementById('life_bar').remove();
+        document.getElementById('score_bar').remove();
+        document.getElementById('playground').remove();
+        document.getElementById('song').setAttribute('src', '/static/audio/The_Mandalorian%20-%20Soundtrack.mp3');
+        for (let i = 0; i < bricks.length; i++){
+            document.getElementById(`brick${i}`).remove()
+        }
+    }
+
+    function back_to_menu(){
+        reset_board();
+        let play_ground = document.createElement('div');
+        play_ground.id = 'playground';
+
+        let paddle = document.createElement('div');
+        paddle.id = 'paddle';
+        paddle.classList.add('paddle');
+        play_ground.appendChild(paddle);
+
+        let bricks = document.createElement('div');
+        bricks.id = 'bricks';
+        play_ground.appendChild(bricks);
+
+        let menu_button = document.createElement('div');
+        menu_button.id = 'menu_button';
+
+        let start_button = document.createElement('button');
+        start_button.id = 'start';
+        start_button.value = 'START';
+
+        menu_button.appendChild(start_button);
+        play_ground.appendChild(menu_button);
+        document.getElementById('background').appendChild(play_ground);
+        document.getElementById('playground').style.backgroundImage = '/static/images/menu_background.jpg';
+        menu()
+    }
+
+    function death(){
+        let death = document.createElement('div');
+        death.id = 'death';
+        death.textContent = 'MISSION FAIL';
+        let ballCoord = coordinate(document.getElementById('ball'));
+        let paddleCoord = coordinate(document.getElementById('paddle'));
+        if (ballCoord.y >= paddleCoord.y + 10) {
+            game_data.life -= 1;
+            add_life_bar(game_data.life);
+            ballX = 60;
+            ballY = 20;
+            direction.dy *= -1;
+            if (game_data.life === 0) {
+                game_data.move = false;
+                document.getElementById('playground').appendChild(death);
+                setTimeout(back_to_menu, 3000)
+            }
+        }
+    }
 
     function move() {
-        if (ballX >= 100 - 2 * ballRadiusHorizontalPercentage || ballX <= 0) {
-            direction.dx *= -1;
-        }
-        if (ballY >= 100 - 2 * ballRadiusVerticalPercentage || ballY <= 0) {
-            direction.dy *= -1;
-        }
-        collisionDetection();
+        if (game_data.move) {
+            if (ballX >= 100 - 2 * ballRadiusHorizontalPercentage || ballX <= 0) {
+                direction.dx *= -1;
+            }
+            if (ballY >= 100 - 2 * ballRadiusVerticalPercentage || ballY <= 0) {
+                direction.dy *= -1;
+            }
+            collisionDetection();
+            death();
+            paddleCollision();
 
-        paddleCollision();
-
-        if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
-            clearInterval(id);
-        } else {
-            ballX += direction.dx;
-            ballY += direction.dy;
-            drawBall();
+            if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
+                clearInterval(id);
+            } else {
+                ballX += direction.dx;
+                ballY += direction.dy;
+                drawBall();
+            }
         }
     }
 
