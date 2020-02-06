@@ -25,41 +25,67 @@
     position: absolute;
     left: 45%;
     top: 40%;
+    alignment: center;
+}
+
+#menu_button button:hover {
+    color: white;
+}
+
+button:hover {
+    background-color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 #start {
     position: absolute;
     top: 30px;
-    font-size: 20px;
+    font-size: 30px;
     background-color: coral;
+    display: block;
+    border-radius: 8px;
+    padding: 4px;
 }
+
+
 
 #tutorial {
     position: absolute;
     top: 70px;
-    font-size: 20px;
+    font-size: 30px;
     background-color: coral;
 }
 
 #Easy {
     position : absolute;
-    top: 30px;
-    font-size: 20px;
-    background-color: forestgreen;
+    top: 0px;
+    font-size: 30px;
+    background-color: #078f0c;
+    display: block;
+    border-radius: 8px;
+    padding: 4px;
 }
 
 #Medium {
     position : absolute;
-    top: 70px;
-    font-size: 20px;
-    background-color: yellow;
+    top: 60px;
+    font-size: 30px;
+    background-color: #f5a716;
+    display: block;
+    border-radius: 8px;
+    padding: 4px;
+
 }
 
 #Mandalorian {
     position : absolute;
-    top: 110px;
-    font-size: 20px;
-    background-color: red;
+    top: 120px;
+    font-size: 30px;
+    background-color: #bf0a00;
+    display: block;
+    border-radius: 8px;
+    padding: 4px;
+
 }
 
 #gif_image {
