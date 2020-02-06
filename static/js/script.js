@@ -215,8 +215,8 @@ function play(game_data) {
     function drawBricks(heads) {
         document.getElementById('bricks').innerHTML = "";
         for (let i = 0; i < bricks.length; i++) {
-            // let index = getRandom(0, heads.length);
-            let index = 1;
+            let index = getRandom(0, heads.length);
+
             document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%'>
                 <img src='/static/images/${heads[index]}' id="head" alt="head_image"></div>`;
         }
@@ -295,6 +295,7 @@ function play(game_data) {
             ballY += direction.dy;
             drawBall();
         }
+
 
     }
 
