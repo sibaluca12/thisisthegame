@@ -184,6 +184,41 @@ button:hover {
     font-size: 100px;
     top: 10%;
     left: 10%;
-    background-color: coral;
+    background-color: #f5a716;
     text-align: center;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: medium;
+    border-color: #bf0a00;
+}
+
+#win {
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    font-size: 30px;
+    top: 10%;
+    left: 25%;
+    background-color: #f5a716;
+    text-align: center;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: medium;
+    border-color: #bf0a00;
+}
+
+#yes {
+    position: absolute;
+    font-size: 30px;
+    bottom: 10%;
+    left: 10%;
+    background-color: #078f0c;
+}
+
+#no {
+    position: absolute;
+    font-size: 30px;
+    bottom: 10%;
+    right: 10%;
+    background-color: red;
 }

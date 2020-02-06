@@ -288,7 +288,7 @@ function play(game_data) {
                     document.getElementById('score_bar').textContent = game_data.score;
                     brick_number -= 1;
                     if (brick_number === 0) {
-                        death()
+                        win()
                     }
                 }
             }
@@ -303,7 +303,43 @@ function play(game_data) {
         }
 
         function win() {
+            game_data.move = false;
+            let win_message = document.createElement('div');
+            win_message.id = 'win';
+            win_message.textContent = 'The level 2 is 99.9€.\n Are you buy?';
 
+            let yes_button = document.createElement('button');
+            yes_button.id = 'yes';
+            yes_button.textContent = 'YES';
+            yes_button.addEventListener('click', yes);
+
+            let no_button = document.createElement('button');
+            no_button.id = 'no';
+            no_button.textContent = 'NO';
+            no_button.addEventListener('click', no);
+
+            win_message.appendChild(yes_button);
+            win_message.appendChild(no_button);
+            document.getElementById('playground').appendChild(win_message);
+
+        }
+
+        function message(text){
+            let messageWindow = document.createElement('div');
+            messageWindow.id = 'win';
+            messageWindow.textContent = text;
+            messageWindow.addEventListener('click', back_to_menu);
+            document.getElementById('playground').appendChild(messageWindow)
+        }
+
+        function yes(){
+            message('Thank you for your money! Baby yoda is happy!');
+            document.getElementById('gif_image').setAttribute('src', '/static/images/Baby_yoda_happy.gif')
+        }
+
+        function no() {
+            message('Baby yoda is sad! ARE YOU HAPPY?!!!');
+            document.getElementById('gif_image').setAttribute('src', '/static/images/Baby_yoda_sad.gif')
         }
 
         function paddleCollision() {
@@ -325,6 +361,8 @@ function play(game_data) {
         }
 
         function reset_board() {
+            game_data.life = 0;
+            add_life_bar(game_data.life);
             document.getElementById('score_bar').textContent = '0';
             document.getElementById('playground').remove();
             document.getElementById('song').setAttribute('src', '/static/audio/The_Mandalorian%20-%20Soundtrack.mp3');
@@ -362,6 +400,7 @@ function play(game_data) {
             let death = document.createElement('div');
             death.id = 'death';
             death.textContent = 'MISSION FAIL';
+            death.addEventListener('click', back_to_menu);
             let ballCoord = coordinate(document.getElementById('ball'));
             let paddleCoord = coordinate(document.getElementById('paddle'));
             if (ballCoord.y >= paddleCoord.y + 10) {
@@ -374,11 +413,6 @@ function play(game_data) {
                     game_data.move = false;
                     document.getElementById('gif_image').setAttribute('src', "/static/images/Baby_yoda_sad.gif");
                     document.getElementById('playground').appendChild(death);
-                    setTimeout(back_to_menu, 3000)
-                }
-                else {
-                    game_data.move = false;
-                    win()
                 }
             }
         }
