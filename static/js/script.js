@@ -4,16 +4,17 @@ window.onload = function () {
         level2: ['/static/images/speaks/level2-1.png', '/static/images/speaks/level2-2.png', '/static/images/speaks/level2-3.png', '/static/images/speaks/level2-4.png', '/static/images/speaks/level2-5.png'],
         level3: ['/static/images/speaks/level3-1.png', '/static/images/speaks/level3-2.png', '/static/images/speaks/level3-3.png', '/static/images/speaks/level3-4.png', '/static/images/speaks/level3-5.png'],
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
-
     };
     const game_data = {life:0, score:0, level:'level1', speed: 0.5, point: 0};
     document.getElementById('sound').addEventListener('click', sound_off);
     document.getElementById('silence').addEventListener('click', sound_on);
     document.getElementById('paddle').style.display = 'none';
-    document.getElementById('start').addEventListener('click', function(){difficult(game_data, speak_card)})
+    document.getElementById('start').addEventListener('click', function () {
+        difficult(game_data, speak_card)
+    })
 };
 
-function sound_on(){
+function sound_on() {
     let sound = document.getElementById('song');
     sound.play();
     sound.autoplay = true;
@@ -31,27 +32,29 @@ function sound_off() {
     document.getElementById('silence').style.display = 'block'
 }
 
-function difficult(game_data, speak_card){
+function difficult(game_data, speak_card) {
     document.getElementById('start').remove();
     const difficult_buttons = document.createElement('div');
     difficult_buttons.setAttribute('id', 'difficult_button');
 
     let difficult = ['Easy', 'Medium', 'Mandalorian'];
-    for (let element of difficult){
+    for (let element of difficult) {
         let button = document.createElement('button');
         button.textContent = element;
         button.setAttribute('id', element);
-        difficult_buttons.appendChild(button)}
+        difficult_buttons.appendChild(button)
+    }
     const background = document.getElementById('menu_button');
     background.appendChild(difficult_buttons);
 
-    for (let element of difficult){
-        document.getElementById(element).addEventListener('click', function(){
-            game_start(element, game_data, speak_card)})
+    for (let element of difficult) {
+        document.getElementById(element).addEventListener('click', function () {
+            game_start(element, game_data, speak_card)
+        })
     }
 }
 
-function game_start(difficult, game_data, speak_card){
+function game_start(difficult, game_data, speak_card) {
     set_life(difficult, game_data);
     new_level('/static/images/level1_background.jpg');
     add_life_bar(game_data.life);
@@ -78,7 +81,7 @@ function set_life(difficult, game_data){
     }
 }
 
-function new_level(new_background){
+function new_level(new_background) {
     document.getElementById('menu_button').remove();
     document.getElementById('playground').style.backgroundImage = `url('${new_background}')`;
     switch (new_background) {
@@ -97,11 +100,11 @@ function new_level(new_background){
     }
 }
 
-function add_life_bar(live){
+function add_life_bar(live) {
     const life_bar = document.createElement('div');
     life_bar.setAttribute('id', 'life_bar');
 
-    for (let i=0; i<live; i++){
+    for (let i = 0; i < live; i++) {
         let life = document.createElement('img');
         life.setAttribute('src', '/static/images/life_bar.png');
         life.setAttribute('id', 'life');
@@ -119,26 +122,29 @@ function add_score_bar(score) {
     document.getElementById('background').appendChild(score_bar)
 }
 
-function speak_change(speak_card, game_data){
+function speak_change(speak_card, game_data) {
     let old_image = document.getElementById('speak').getAttribute('src');
     let index = speak_card.level1.indexOf(old_image);
     index++;
-    if (index < speak_card.level1.length){
+    if (index < speak_card.level1.length) {
         document.getElementById('speak').setAttribute('src', speak_card.level1[index])
-    }
-    else if (index === speak_card.level1.length){
+    } else if (index === speak_card.level1.length) {
         document.getElementById('speak').removeEventListener('click', speak_change);
-        document.getElementById('speak').addEventListener('click', function(){play(game_data)})
+        document.getElementById('speak').addEventListener('click', function () {
+            play(game_data)
+        })
     }
 }
 
-function speak(speak_card, game_data){
+function speak(speak_card, game_data) {
     let speak = document.createElement('img');
     speak.setAttribute('id', 'speak');
     speak.setAttribute('src', speak_card.level1[0]);
     document.getElementById('playground').appendChild(speak);
 
-    document.getElementById('speak').addEventListener('click', function(){speak_change(speak_card, game_data)});
+    document.getElementById('speak').addEventListener('click', function () {
+        speak_change(speak_card, game_data)
+    });
 }
 
 function play(game_data) {
@@ -178,10 +184,9 @@ function play(game_data) {
     ];
 
     document.onmousemove = function (event) {
-        if (event.clientX >= paddleWidth / 2 && event.clientX <= (playGroundWidth - paddleWidth / 2)){
+        if (event.clientX >= paddleWidth / 2 && event.clientX <= (playGroundWidth - paddleWidth / 2)) {
             paddle.left = event.clientX - paddleWidth / 2;
-        }
-        else if (paddle.left < paddleWidth / 2){
+        } else if (paddle.left < paddleWidth / 2) {
             paddle.left = 0;
         }
         else if (paddle.left > playGroundWidth - paddleWidth / 2 || event.clientX > playGroundWidth){
@@ -207,11 +212,11 @@ function play(game_data) {
         drawPaddle();
     };
 
-    function coordinate(element){
+    function coordinate(element) {
         return element.getBoundingClientRect();
     }
 
-    function getRandom(min, max){
+    function getRandom(min, max) {
         return Math.floor(Math.random() * (max - min) + min)
     }
 
