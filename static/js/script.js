@@ -138,7 +138,7 @@ function play(game_data) {
     document.getElementById('speak').style.display = 'none';
     document.getElementById('paddle').style.display = 'block';
     let playGround = document.getElementById('playground');
-    let paddleWidth = 150;
+    let paddleWidth = 130;
     let paddleHeight = 10;
     let paddleX = (playGround.width-paddleWidth)/2;
     let brickRowCount = 3;
@@ -236,8 +236,7 @@ function play(game_data) {
     let ballRadius = 40;
     let ballRadiusHorizontalPercentage = (ballRadius / playGroundWidth) * 100;
     let ballRadiusVerticalPercentage = (ballRadius / playGroundHeight) * 100;
-    let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
-    let paddleHeightPercentage = (paddleHeight / playGroundHeight) * 100;
+
 
     Object.assign(ball.style, {
         width: ballRadius * 2 + 'px',
@@ -281,16 +280,20 @@ function play(game_data) {
         });
     }
 
+
     function paddleCollision() {
-        if(ballX + 2 * ballRadiusHorizontalPercentage >= paddle.left &&
-            ballX <= paddle.left + paddleWidthPercentage&&
-            ballY <= 100 - paddle.top &&
-            ballY + 2 * ballRadiusVerticalPercentage >= 100 - paddle.top - paddleHeight
+        let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
+        let paddleHeightPercentage = (paddleHeight / playGroundHeight) * 100;
+        let bottomOfPaddleY = 100 - paddle.top;
+        let leftOfPaddleX = (paddle.left / playGroundWidth) * 100;
+        if(ballX + ballRadiusHorizontalPercentage >= leftOfPaddleX  &&
+            ballX <= leftOfPaddleX + paddleWidthPercentage  &&
+            ballY <= bottomOfPaddleY
     ) {
            direction.dy *= -1;
 
         }
-        drawPaddle()
+
     }
 
 
@@ -302,7 +305,8 @@ function play(game_data) {
             direction.dy *= -1;
         }
         collisionDetection();
-        paddleCollision()
+
+        paddleCollision();
 
         if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
             clearInterval(id);
