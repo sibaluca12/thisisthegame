@@ -3,12 +3,6 @@
     margin: 0;
 }
 
-#myCanvas {
-    background: #a3adad;
-    display: block;
-    margin: 0 auto;
-
-}
 
 #background {
     background-image: url("/static/images/background.jpg");
@@ -17,14 +11,14 @@
 }
 
 #playground {
-    width: 60%;
-    height: 70%;
+    width: 70%;
+    height: 75%;
     position: absolute;
     background-image: url("/static/images/menu_background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    bottom: 20px;
-    left: 20px;
+    bottom: 0;
+    left: 3px;
 }
 
 #menu_button {
@@ -35,38 +29,58 @@
 
 #start {
     position: absolute;
-    top: 200px;
+    top: 30px;
     font-size: 20px;
     background-color: coral;
 }
 
 #tutorial {
     position: absolute;
-    top: 240px;
+    top: 70px;
     font-size: 20px;
     background-color: coral;
 }
 
+#Easy {
+    position : absolute;
+    top: 30px;
+    font-size: 20px;
+    background-color: forestgreen;
+}
+
+#Medium {
+    position : absolute;
+    top: 70px;
+    font-size: 20px;
+    background-color: yellow;
+}
+
+#Mandalorian {
+    position : absolute;
+    top: 110px;
+    font-size: 20px;
+    background-color: red;
+}
+
 #gif_image {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 37%;
+    bottom: 0;
+    right: 0;
+    width: 29.8%;
     height: 250px;
 }
 
 .paddle {
-    width: 175px;
-    height: 30px;
+    width: 130px;
+    height: 10px;
     background-image: url('/static/assets/metal.jpg');
     position: absolute;
     border-radius: 8px;
-
 }
 
 .bricks {
-    width: 18%;
-    height: 8%;
+    width: 10%;
+    height: 10%;
     background-color: white;
     position: absolute;
     border-radius: 8px;
@@ -77,3 +91,62 @@
     height: 391px;
 }
 
+#life_bar {
+     position: absolute;
+     top: 20.2%;
+     left: 3px;
+     background-color: coral;
+     width: 150px;
+     height: 30px;
+}
+
+#life {
+    width: 30px;
+    height: 30px;
+}
+
+#score_bar{
+    position: absolute;
+    top: 20.2%;
+    left: 59.2%;
+    background-color: coral;
+    width: 150px;
+    height: 30px;
+    text-align: right;
+    font-size: 20px;
+}
+
+#speak{
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    top: 15%;
+    left: 20%;
+}
+
+#sound {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: coral;
+    border-radius: 20px;
+    top: 20%;
+    left: 51%;
+    display: none;
+}
+
+#silence{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: coral;
+    border-radius: 20px;
+    top: 20%;
+    left: 51%;
+    display: block;
+}
+
+#head {
+    width: 50px;
+    height: 50px;
+}
