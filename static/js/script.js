@@ -26,7 +26,9 @@ function sound_on() {
     sound.loop = true;
     sound.currentTime = 0;
     document.getElementById('sound').style.display = 'block';
+    document.getElementById('sound').setAttribute('alt', 'on');
     document.getElementById('silence').style.display = 'none';
+    document.getElementById('silence').setAttribute('ald', 'off')
 }
 
 function sound_off() {
@@ -34,7 +36,9 @@ function sound_off() {
     sound.pause();
     sound.autoplay = false;
     document.getElementById('sound').style.display = 'none';
-    document.getElementById('silence').style.display = 'block'
+    document.getElementById('sound').setAttribute('alt', 'off');
+    document.getElementById('silence').style.display = 'block';
+    document.getElementById('silence').setAttribute('ald', 'on')
 }
 
 function difficult(game_data, speak_card) {
@@ -157,6 +161,7 @@ function play(game_data) {
         let leftPressed = false;
         let playGroundWidth = document.getElementById('playground').clientWidth;
         let playGroundHeight = document.getElementById('playground').clientHeight;
+        let deathSong = new Audio('static/audio/WEEEOOOOWW.mp3');
         // let heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
 
         let paddle = {
@@ -183,6 +188,12 @@ function play(game_data) {
         ];
 
         let brick_number = bricks.length;
+
+        function playSound(sound, loop) {
+            sound.loop = loop;
+            sound.play();
+            sound.currentTime = 0
+        }
 
         if (game_data.move) {
             document.onmousemove = function (event) {
@@ -410,6 +421,9 @@ function play(game_data) {
                 ballY = 20;
                 direction.dy *= -1;
                 if (game_data.life === 0) {
+                    if (document.getElementById('sound').getAttribute('alt') === 'on'){
+                        playSound(deathSong, false)
+                    }
                     game_data.move = false;
                     document.getElementById('gif_image').setAttribute('src', "/static/images/Baby_yoda_sad.gif");
                     document.getElementById('playground').appendChild(death);
