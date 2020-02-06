@@ -144,8 +144,8 @@ function play(game_data) {
     let paddleX = (playGround.width-paddleWidth)/2;
     let brickRowCount = 3;
     let brickColumnCount = 5;
-    let brickWidth = 150;
-    let brickHeight = 35;
+    let brickWidth = 5;
+    let brickHeight = 10;
     let playGroundWidth = document.getElementById('playground').clientWidth;
     let playGroundHeight = document.getElementById('playground').clientHeight;
     const heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
@@ -172,7 +172,6 @@ function play(game_data) {
         { left: 8, top: 10, status:1 },
         { left: 15, top: 20, status:1 },
     ];
-
     document.onmousemove = function (event) {
         if (event.clientX >= paddleWidth / 2 && event.clientX <= (playGroundWidth - paddleWidth / 2)){
             paddle.left = event.clientX - paddleWidth / 2;
@@ -192,28 +191,39 @@ function play(game_data) {
 
     function collisionDetection() {
         for (let brick = 0; brick < bricks.length; brick++) {
+            let currentBrickLeft = bricks[brick].left;
+            let currentBrickTop = bricks[brick].top;
             if (
-                ball.left >= bricks[brick].left &&
-                ball.left <= (bricks[brick].left + 10) &&
-                ball.top <= (bricks[brick].top + 10) &&
-                ball.top >= bricks[brick].top
+                ballX + 2 * ballRadiusHorizontalPercentage >= currentBrickLeft &&
+                ballX <= currentBrickLeft + brickWidth &&
+                ballY <= 100 - currentBrickTop &&
+                ballY + 2 * ballRadiusVerticalPercentage >= 100 - currentBrickTop - brickHeight
             ) {
-                bricks.splice(brick, 1)
+                if (ballY < 100 - currentBrickTop && ballY > 100 - currentBrickTop - brickHeight) {
+                    direction.dx *= -1;
+                } else {
+                    direction.dy *= -1;
+                }
+                bricks.splice(brick, 1);
             }
         }
+        drawBricks();
     }
 
     function getRandom(min, max){
         return Math.floor(Math.random() * (max - min) + min)
     }
 
-    function drawBricks(heads) {
+    function drawBricks() {
         document.getElementById('bricks').innerHTML = "";
         for (let i = 0; i < bricks.length; i++) {
-            let index = getRandom(0, heads.length);
-            document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%' id="brick">
-                <img src='/static/images/${heads[index]}' id="head" alt="head_image"></div>`;
+            document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%' id="brick${i}"></div>`;
         }
+    }
+
+    function add_head(){
+        let index = getRandom(0, heads.length);
+        return `/static/images/${heads[index]}`;
     }
 
     function drawPaddle() {
@@ -226,7 +236,7 @@ function play(game_data) {
     document.querySelector('#playground').appendChild(ball);
 
     let ballX = 60;
-    let ballY = 80;
+    let ballY = 20;
     let ballRadius = 10;
     let ballRadiusHorizontalPercentage =  (ballRadius / playGroundWidth) * 100;
     let ballRadiusVerticalPercentage =  (ballRadius / playGroundHeight) * 100;
@@ -259,7 +269,7 @@ function play(game_data) {
         if (ballY >= 100 - 2 * ballRadiusVerticalPercentage || ballY <= 0) {
             direction.dy *= -1;
         }
-
+        collisionDetection();
         if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
             clearInterval(id);
         } else {
@@ -269,11 +279,11 @@ function play(game_data) {
         }
     }
 
-    function draw(heads) {
+    function draw() {
         drawPaddle();
-        drawBricks(heads);
+        drawBricks();
         move();
     }
-    draw(heads);
+    draw();
 
 }
