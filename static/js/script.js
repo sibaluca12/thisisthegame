@@ -5,7 +5,7 @@ window.onload = function () {
         level3: ['/static/images/speaks/level3-1.png', '/static/images/speaks/level3-2.png', '/static/images/speaks/level3-3.png', '/static/images/speaks/level3-4.png', '/static/images/speaks/level3-5.png'],
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
     };
-    const game_data = {life:0, score:0, level:'level1', speed: 0.5};
+    const game_data = {life:0, score:0, level:'level1', speed: 1.5};
     document.getElementById('sound').addEventListener('click', sound_off);
     document.getElementById('silence').addEventListener('click', sound_on);
     document.getElementById('paddle').style.display = 'none';
@@ -216,8 +216,9 @@ function play(game_data) {
         document.getElementById('bricks').innerHTML = "";
         for (let i = 0; i < bricks.length; i++) {
             let index = getRandom(0, heads.length);
+
             document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%'>
-                <img src='/static/images/${heads[index]}' id="head" alt="head_image"></div>`;
+                </div>`;
         }
     }
 
@@ -254,13 +255,17 @@ function play(game_data) {
         for (let brick = 0; brick < bricks.length; brick++) {
             let currentBrickLeft = bricks[brick].left;
             let currentBrickTop = bricks[brick].top;
+            let rightOfTheBallX = ballX + 2 * ballRadiusHorizontalPercentage;
+            let topOfTheBallY = ballY + 2 * ballRadiusVerticalPercentage;
+            let topOfCurrentBrickY = 100 - currentBrickTop;
+            let bottomOfCurrentBrickY = topOfCurrentBrickY - brickHeight;
             if (
-                ballX + 2 * ballRadiusHorizontalPercentage >= currentBrickLeft &&
+                rightOfTheBallX >= currentBrickLeft &&
                 ballX <= currentBrickLeft + brickWidth &&
-                ballY <= 100 - currentBrickTop &&
-                ballY + 2 * ballRadiusVerticalPercentage >= 100 - currentBrickTop - brickHeight
+                ballY <= topOfCurrentBrickY &&
+                topOfTheBallY >= bottomOfCurrentBrickY
             ) {
-                if (ballY < 100 - currentBrickTop && ballY > 100 - currentBrickTop - brickHeight) {
+                if (ballY < topOfCurrentBrickY - 2 && topOfTheBallY > bottomOfCurrentBrickY + 2) {
                     direction.dx *= -1;
                 } else {
                     direction.dy *= -1;
