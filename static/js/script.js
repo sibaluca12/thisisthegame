@@ -139,7 +139,7 @@ function play(game_data) {
     document.getElementById('speak').style.display = 'none';
     document.getElementById('paddle').style.display = 'block';
     let playGround = document.getElementById('playground');
-    let paddleWidth = 150;
+    let paddleWidth = 130;
     let paddleHeight = 10;
     let paddleX = (playGround.width-paddleWidth)/2;
     let brickRowCount = 3;
@@ -183,7 +183,7 @@ function play(game_data) {
             paddle.left = 0;
         }
         else if (paddle.left > playGroundWidth - paddleWidth / 2 || event.clientX > playGroundWidth){
-            paddle.left = playGroundWidth - paddleWidth + 20;
+            paddle.left = playGroundWidth - paddleWidth;
         }
         drawPaddle()
     };
