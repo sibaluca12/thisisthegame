@@ -286,6 +286,23 @@ function play(game_data) {
         });
     }
 
+
+    function paddleCollision() {
+        let paddleWidthPercentage = (paddleWidth / playGroundWidth) * 100;
+        let paddleHeightPercentage = (paddleHeight / playGroundHeight) * 100;
+        let bottomOfPaddleY = 100 - paddle.top;
+        let leftOfPaddleX = (paddle.left / playGroundWidth) * 100;
+        if(ballX + ballRadiusHorizontalPercentage >= leftOfPaddleX  &&
+            ballX <= leftOfPaddleX + paddleWidthPercentage  &&
+            ballY <= bottomOfPaddleY
+    ) {
+           direction.dy *= -1;
+
+        }
+
+    }
+
+
     function move() {
         if (ballX >= 100 - 2 * ballRadiusHorizontalPercentage || ballX <= 0) {
             direction.dx *= -1;
@@ -294,6 +311,8 @@ function play(game_data) {
             direction.dy *= -1;
         }
         collisionDetection();
+
+        paddleCollision();
 
         if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
             clearInterval(id);
