@@ -146,9 +146,11 @@ function play(game_data) {
     let brickColumnCount = 5;
     let brickWidth = 5;
     let brickHeight = 10;
+    let rightPressed = false;
+    let leftPressed = false;
     let playGroundWidth = document.getElementById('playground').clientWidth;
     let playGroundHeight = document.getElementById('playground').clientHeight;
-    const heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
+    let heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
 
     let paddle = {
         left: 40,
@@ -172,6 +174,7 @@ function play(game_data) {
         { left: 8, top: 10, status:1 },
         { left: 15, top: 20, status:1 },
     ];
+
     document.onmousemove = function (event) {
         if (event.clientX >= paddleWidth / 2 && event.clientX <= (playGroundWidth - paddleWidth / 2)){
             paddle.left = event.clientX - paddleWidth / 2;
@@ -185,29 +188,25 @@ function play(game_data) {
         drawPaddle()
     };
 
-    function coordinate(element){
-        return element.getBoundingClientRect();
-    }
-
-    function collisionDetection() {
-        for (let brick = 0; brick < bricks.length; brick++) {
-            let currentBrickLeft = bricks[brick].left;
-            let currentBrickTop = bricks[brick].top;
-            if (
-                ballX + 2 * ballRadiusHorizontalPercentage >= currentBrickLeft &&
-                ballX <= currentBrickLeft + brickWidth &&
-                ballY <= 100 - currentBrickTop &&
-                ballY + 2 * ballRadiusVerticalPercentage >= 100 - currentBrickTop - brickHeight
-            ) {
-                if (ballY < 100 - currentBrickTop && ballY > 100 - currentBrickTop - brickHeight) {
-                    direction.dx *= -1;
-                } else {
-                    direction.dy *= -1;
-                }
-                bricks.splice(brick, 1);
+    document.onkeydown = function (e) {
+        let rightPressed;
+        if (e.code === 'ArrowLeft') {
+            if (paddle.left > 0) {
+                paddle.left = paddle.left - 2;
             }
         }
-        drawBricks();
+        if (e.code === 'ArrowRight') {
+            if (paddle.left < 79.5) {
+                leftPressed = true;
+                paddle.left = paddle.left + 2;
+            }
+        }
+
+        drawPaddle();
+    };
+
+    function coordinate(element){
+        return element.getBoundingClientRect();
     }
 
     function getRandom(min, max){
@@ -238,8 +237,8 @@ function play(game_data) {
     let ballX = 60;
     let ballY = 20;
     let ballRadius = 10;
-    let ballRadiusHorizontalPercentage =  (ballRadius / playGroundWidth) * 100;
-    let ballRadiusVerticalPercentage =  (ballRadius / playGroundHeight) * 100;
+    let ballRadiusHorizontalPercentage = (ballRadius / playGroundWidth) * 100;
+    let ballRadiusVerticalPercentage = (ballRadius / playGroundHeight) * 100;
 
     Object.assign(ball.style, {
         width: ballRadius * 2 + 'px',
@@ -255,21 +254,47 @@ function play(game_data) {
 
     let id = setInterval(move, 20);
 
-    function drawBall(){
+    function collisionDetection() {
+        for (let brick = 0; brick < bricks.length; brick++) {
+            let currentBrickLeft = bricks[brick].left;
+            let currentBrickTop = bricks[brick].top;
+            let rightOfTheBallX = ballX + 2 * ballRadiusHorizontalPercentage;
+            let topOfTheBallY = ballY + 2 * ballRadiusVerticalPercentage;
+            let topOfCurrentBrickY = 100 - currentBrickTop;
+            let bottomOfCurrentBrickY = topOfCurrentBrickY - brickHeight;
+            if (
+                rightOfTheBallX >= currentBrickLeft &&
+                ballX <= currentBrickLeft + brickWidth &&
+                ballY <= topOfCurrentBrickY &&
+                topOfTheBallY >= bottomOfCurrentBrickY
+            ) {
+                if (ballY < topOfCurrentBrickY - 2 && topOfTheBallY > bottomOfCurrentBrickY + 2) {
+                    direction.dx *= -1;
+                } else {
+                    direction.dy *= -1;
+                }
+                bricks.splice(brick, 1);
+            }
+        }
+        drawBricks();
+    }
+
+    function drawBall() {
         Object.assign(ball.style, {
             left: ballX + '%',
             bottom: ballY + '%'
-        })
+        });
     }
 
     function move() {
-        if ( ballX >= 100 - 2 * ballRadiusHorizontalPercentage || ballX <= 0 ) {
+        if (ballX >= 100 - 2 * ballRadiusHorizontalPercentage || ballX <= 0) {
             direction.dx *= -1;
         }
         if (ballY >= 100 - 2 * ballRadiusVerticalPercentage || ballY <= 0) {
             direction.dy *= -1;
         }
         collisionDetection();
+
         if (ballY >= 110 || ballY <= -10 || ballX <= -10 || ballX >= 110) {
             clearInterval(id);
         } else {
