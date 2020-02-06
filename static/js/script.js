@@ -6,7 +6,7 @@ window.onload = function () {
         level4: ['/static/images/speaks/level4-1.png', '/static/images/speaks/level4-2.png', '/static/images/speaks/level4-3.png', '/static/images/speaks/level4-4.png', '/static/images/speaks/level4-5.png']
 
     };
-    const game_data = {life:0, score:0, level:'level1'};
+    const game_data = {life:0, score:0, level:'level1', speed: 0.5};
     document.getElementById('sound').addEventListener('click', sound_on);
     document.getElementById('silence').addEventListener('click', sound_off);
     document.getElementById('paddle').style.display = 'none';
@@ -56,7 +56,7 @@ function game_start(difficult, game_data, speak_card){
     new_level('/static/images/level1_background.jpg');
     add_life_bar(game_data.life);
     add_score_bar(game_data.score);
-    speak(speak_card)
+    speak(speak_card, game_data)
 
 }
 
@@ -113,7 +113,7 @@ function add_score_bar(score) {
     document.getElementById('background').appendChild(score_bar)
 }
 
-function speak_change(speak_card,){
+function speak_change(speak_card, game_data){
     let old_image = document.getElementById('speak').getAttribute('src');
     let index = speak_card.level1.indexOf(old_image);
     index++;
@@ -122,37 +122,33 @@ function speak_change(speak_card,){
     }
     else if (index === speak_card.level1.length){
         document.getElementById('speak').removeEventListener('click', speak_change);
-        document.getElementById('speak').addEventListener('click', play)
+        document.getElementById('speak').addEventListener('click', function(){play(game_data)})
     }
 }
 
-function speak(speak_card){
+function speak(speak_card, game_data){
     let speak = document.createElement('img');
     speak.setAttribute('id', 'speak');
     speak.setAttribute('src', speak_card.level1[0]);
     document.getElementById('playground').appendChild(speak);
 
-    document.getElementById('speak').addEventListener('click', function(){speak_change(speak_card)});
+    document.getElementById('speak').addEventListener('click', function(){speak_change(speak_card, game_data)});
 }
 
-function play() {
+function play(game_data) {
     document.getElementById('speak').style.display = 'none';
     document.getElementById('paddle').style.display = 'block';
     let playGround = document.getElementById('playground');
     let paddleWidth = 150;
     let paddleHeight = 10;
     let paddleX = (playGround.width-paddleWidth)/2;
-    let brickRowCount = 4;
+    let brickRowCount = 3;
     let brickColumnCount = 5;
     let brickWidth = 150;
     let brickHeight = 35;
-    let rightPressed = false;
-    let leftPressed = false;
     let playGroundWidth = document.getElementById('playground').clientWidth;
     let playGroundHeight = document.getElementById('playground').clientHeight;
-    let x = playGroundWidth / 2;
-    let y = playGroundHeight;
-    let backgroundWidth = document.getElementById('background').clientWidth;
+    const heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
 
     let paddle = {
         left: 40,
@@ -161,20 +157,20 @@ function play() {
 
     let bricks = [
         { left: 81, top: 0, status:1},
-        { left: 81, top: 10,status:1},
-        { left: 81, top: 20, status:1 },
+        { left: 88, top: 10,status:1},
+        { left: 94.5, top: 20, status:1 },
         { left: 61, top: 0, status:1 },
-        { left: 61, top: 10,status:1 },
-        { left: 61, top: 20,status:1 },
+        { left: 68, top: 10,status:1 },
+        { left: 75, top: 20,status:1 },
         { left: 41, top: 0, status:1 },
-        { left: 41, top: 10, status:1 },
-        { left: 41, top: 20, status:1 },
+        { left: 48, top: 10, status:1 },
+        { left: 55, top: 20, status:1 },
         { left: 21, top: 0, status:1},
-        { left: 21, top: 10, status:1 },
-        { left: 21, top: 20, status:1 },
+        { left: 28, top: 10, status:1 },
+        { left: 35, top: 20, status:1 },
         { left: 1, top: 0, status:1 },
-        { left: 7, top: 10, status:1 },
-        { left: 13, top: 20, status:1 },
+        { left: 8, top: 10, status:1 },
+        { left: 15, top: 20, status:1 },
     ];
 
     document.onmousemove = function (event) {
@@ -190,6 +186,10 @@ function play() {
         drawPaddle()
     };
 
+    function coordinate(element){
+        return element.getBoundingClientRect();
+    }
+
     function collisionDetection() {
         for (let brick = 0; brick < bricks.length; brick++) {
             if (
@@ -203,17 +203,22 @@ function play() {
         }
     }
 
-    function drawBricks() {
+    function getRandom(min, max){
+        return Math.floor(Math.random() * (max - min) + min)
+    }
+
+    function drawBricks(heads) {
         document.getElementById('bricks').innerHTML = "";
         for (let i = 0; i < bricks.length; i++) {
-            document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%'></div>`;
+            let index = getRandom(0, heads.length);
+            document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%' id="brick">
+                <img src='/static/images/${heads[index]}' id="head"></div>`;
         }
     }
 
     function drawPaddle() {
         document.getElementById('paddle').style.left = paddle.left + 'px';
         document.getElementById('paddle').style.top = paddle.top + '%';
-
     }
 
     let ball = document.createElement('div');
@@ -234,7 +239,7 @@ function play() {
         bottom: ballY + '%',
     });
 
-    let direction = {dx: 0.5, dy: 0.5};
+    let direction = {dx: game_data.speed, dy: game_data.speed};
 
     let id = setInterval(move, 20);
 
@@ -256,12 +261,12 @@ function play() {
         }
     }
 
-    function draw() {
+    function draw(heads) {
         drawPaddle();
-        drawBricks();
+        drawBricks(heads);
         move();
         collisionDetection()
     }
+    draw(heads);
 
-    draw()
 }
