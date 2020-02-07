@@ -175,7 +175,8 @@ function play(game_data) {
         let playGroundHeight = document.getElementById('playground').clientHeight;
         let deathSong = new Audio('static/audio/WEEEOOOOWW.mp3');
         let laserSong = new Audio('static/audio/Blaster-Imperial.wav');
-        // let heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
+        let heads = ['Gamorrean_head.png', 'Gran_head.png', 'Weequay_head.png'];
+        let headIndex = [];
 
         let paddle = {
             left: 40,
@@ -237,21 +238,24 @@ function play(game_data) {
             return element.getBoundingClientRect();
         }
 
-        // function getRandom(min, max) {
-        //     return Math.floor(Math.random() * (max - min) + min)
-        // }
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min) + min)
+        }
 
         function drawBricks() {
             document.getElementById('bricks').innerHTML = "";
             for (let i = 0; i < bricks.length; i++) {
-                document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%' id="brick${i}"></div>`;
+                document.getElementById('bricks').innerHTML += `<div class='bricks' style='left:${bricks[i].left}%; top:${bricks[i].top}%' id="brick${headIndex[i]}">
+                <img src="/static/images/${heads[headIndex[i]]}" alt="" id="head"></div>`;
             }
         }
 
-        // function add_head() {
-        //     let index = getRandom(0, heads.length);
-        //     return `/static/images/${heads[index]}`;
-        // }
+        function head_index() {
+            for (let i = 0; i < bricks.length; i++) {
+                let index = getRandom(0, heads.length);
+                headIndex.push(index)
+            }
+        }
 
         function drawPaddle() {
             document.getElementById('paddle').style.left = paddle.left + 'px';
@@ -462,6 +466,9 @@ function play(game_data) {
         }
 
         function draw() {
+            if (headIndex.length === 0) {
+                head_index();
+            }
             drawPaddle();
             drawBricks();
             move();

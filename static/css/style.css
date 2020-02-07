@@ -106,8 +106,7 @@ button:hover {
 
 .bricks {
     width: 10%;
-    height: 10%;
-    background-color: white;
+    height: 12%;
     position: absolute;
     border-radius: 8px;
 }
@@ -173,8 +172,9 @@ button:hover {
 }
 
 #head {
-    width: 10%;
-    height: 10%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 #death {
